@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PM Intent Scoring Report â Apr 22 to May 7, 2026</title>
+<title>PM Lead Tracker â Apr 22 to May 7, 2026</title>
 <style>
   :root {
     --bg: #0d1117;
@@ -21,174 +21,446 @@
     --early: #58a6ff;
     --early-bg: #0d1f36;
     --early-border: #1f4b7a;
-    --none: #3d444d;
-    --none-bg: #1c2128;
-    --none-border: #3d444d;
     --green: #3fb950;
-    --purple: #bc8cff;
     --teal: #39d353;
+    --purple: #bc8cff;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; padding: 24px; line-height: 1.5; }
-  
-  .header { border-bottom: 1px solid var(--border); padding-bottom: 20px; margin-bottom: 24px; }
-  .header h1 { font-size: 22px; font-weight: 600; color: #f0f6fc; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; padding: 24px; line-height: 1.5; max-width: 1100px; margin: 0 auto; }
+
+  /* HEADER */
+  .header { border-bottom: 1px solid var(--border); padding-bottom: 18px; margin-bottom: 28px; }
+  .header h1 { font-size: 20px; font-weight: 600; color: #f0f6fc; }
   .header .meta { font-size: 13px; color: var(--muted); margin-top: 4px; }
-  .header .subtitle { font-size: 13px; color: var(--muted); margin-top: 6px; background: var(--surface2); border: 1px solid var(--border); padding: 8px 12px; border-radius: 6px; margin-top: 12px; }
 
-  .stats-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
-  .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px 20px; flex: 1; min-width: 140px; }
-  .stat-card .num { font-size: 28px; font-weight: 700; }
-  .stat-card .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
-  .stat-hot .num { color: var(--hot); }
-  .stat-warm .num { color: var(--warm); }
-  .stat-early .num { color: var(--early); }
-  .stat-none .num { color: var(--muted); }
-  .stat-pm .num { color: var(--purple); }
+  /* SECTION LABELS */
+  .section { margin-bottom: 36px; }
+  .section-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 5px 12px; border-radius: 4px; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+  .sl-avoma { background: #1a1000; border: 1px solid #7a4f00; color: var(--warm); }
+  .sl-posthog { background: #0a1e14; border: 1px solid #1a5c38; color: var(--teal); }
+  .sl-tracker { background: #1a0a2e; border: 1px solid #6e3fa3; color: var(--purple); }
 
-  .section { margin-bottom: 32px; }
-  .section-title { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 12px; padding: 6px 12px; border-radius: 4px; display: inline-flex; align-items: center; gap: 8px; }
-  .section-hot { background: var(--hot-bg); border: 1px solid var(--hot-border); color: var(--hot); }
-  .section-warm { background: var(--warm-bg); border: 1px solid var(--warm-border); color: var(--warm); }
-  .section-early { background: var(--early-bg); border: 1px solid var(--early-border); color: var(--early); }
-  .section-none { background: var(--none-bg); border: 1px solid var(--none-border); color: var(--muted); }
-  .section-pm { background: #1a0a2e; border: 1px solid #6e3fa3; color: var(--purple); }
-
-  .brand-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px; overflow: hidden; }
+  /* BRAND CARDS (Section 1) */
+  .brand-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 8px; overflow: hidden; }
   .brand-card-hot { border-color: var(--hot-border); }
   .brand-card-warm { border-color: var(--warm-border); }
   .brand-card-early { border-color: var(--early-border); }
 
-  .brand-header { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--border); cursor: pointer; }
+  .brand-header { display: flex; align-items: center; gap: 12px; padding: 11px 16px; cursor: pointer; user-select: none; }
   .brand-header:hover { background: var(--surface2); }
-  .brand-name { font-weight: 600; font-size: 15px; flex: 1; }
-  .tier-badge { font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .brand-name { font-weight: 600; font-size: 14px; flex: 1; }
+  .tier-badge { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
   .badge-hot { background: var(--hot-bg); border: 1px solid var(--hot-border); color: var(--hot); }
   .badge-warm { background: var(--warm-bg); border: 1px solid var(--warm-border); color: var(--warm); }
   .badge-early { background: var(--early-bg); border: 1px solid var(--early-border); color: var(--early); }
-  .badge-none { background: var(--none-bg); border: 1px solid var(--none-border); color: var(--muted); }
-  .badge-pm { background: #1a0a2e; border: 1px solid #6e3fa3; color: var(--purple); }
 
-  .score-bar-wrap { display: flex; align-items: center; gap: 8px; min-width: 140px; }
-  .score-bar { flex: 1; height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
+  .score-bar-wrap { display: flex; align-items: center; gap: 8px; min-width: 130px; }
+  .score-bar { flex: 1; height: 5px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
   .score-fill-hot { height: 100%; background: var(--hot); border-radius: 3px; }
   .score-fill-warm { height: 100%; background: var(--warm); border-radius: 3px; }
   .score-fill-early { height: 100%; background: var(--early); border-radius: 3px; }
-  .score-num { font-size: 12px; color: var(--muted); min-width: 30px; text-align: right; }
+  .score-num { font-size: 11px; color: var(--muted); min-width: 32px; text-align: right; }
+  .chevron { color: var(--muted); font-size: 10px; transition: transform 0.2s; }
 
-  .brand-body { padding: 14px 16px; display: none; }
+  .brand-body { padding: 12px 16px; display: none; border-top: 1px solid var(--border); }
   .brand-body.open { display: block; }
 
-  .meta-row { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 10px; }
+  .meta-row { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 10px; }
   .meta-item { font-size: 12px; color: var(--muted); }
   .meta-item span { color: var(--text); }
 
-  .evidence-list { list-style: none; margin: 0; padding: 0; }
-  .evidence-item { padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .evidence-list { list-style: none; }
+  .evidence-item { padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
   .evidence-item:last-child { border-bottom: none; }
-  .evidence-kw { display: inline-block; background: #0d2b0d; border: 1px solid #1a5c1a; color: #3fb950; font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 3px; margin-right: 6px; text-transform: uppercase; letter-spacing: 0.4px; }
-  .evidence-kw-med { background: #1e1a00; border-color: #5c4f00; color: #d4af37; }
-  .evidence-kw-exp { background: #0d1f36; border-color: #1f4b7a; color: #58a6ff; }
-  .evidence-quote { color: var(--text); font-style: italic; }
-  .evidence-who { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .kw { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 3px; margin-right: 6px; text-transform: uppercase; letter-spacing: 0.4px; }
+  .kw-high { background: #0d2b0d; border: 1px solid #1a5c1a; color: #3fb950; }
+  .kw-med  { background: #1e1a00; border: 1px solid #5c4f00; color: #d4af37; }
+  .kw-exp  { background: #0d1f36; border: 1px solid #1f4b7a; color: #58a6ff; }
+  .quote { color: var(--text); font-style: italic; }
+  .who { font-size: 11px; color: var(--muted); margin-top: 2px; }
 
-  .action-box { background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; padding: 10px 14px; margin-top: 12px; font-size: 13px; }
-  .action-box .action-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .action-box { background: var(--surface2); border: 1px solid var(--border); border-radius: 5px; padding: 9px 13px; margin-top: 10px; font-size: 13px; }
+  .action-box .al { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
 
-  .no-signal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; }
-  .no-signal-item { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 10px 14px; font-size: 13px; }
-  .no-signal-item .ns-brand { font-weight: 500; }
-  .no-signal-item .ns-date { font-size: 11px; color: var(--muted); }
-
-  .pm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; }
-  .pm-item { background: #120d1e; border: 1px solid #3d2a6b; border-radius: 6px; padding: 10px 14px; }
-  .pm-item .pm-brand { font-weight: 600; color: var(--purple); }
-  .pm-item .pm-note { font-size: 12px; color: var(--muted); margin-top: 3px; }
-
-  .unscored-section { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin-bottom: 24px; }
-  .unscored-section h3 { font-size: 13px; font-weight: 600; color: var(--muted); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
-  .unscored-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 6px; }
-  .unscored-item { background: var(--surface2); border: 1px solid var(--border); border-radius: 5px; padding: 8px 12px; font-size: 12px; }
-  .unscored-item .u-brand { font-weight: 500; color: var(--text); }
-  .unscored-item .u-date { color: var(--muted); font-size: 11px; }
-
-  .methodology { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin-bottom: 24px; font-size: 13px; }
-  .methodology h3 { margin-bottom: 10px; font-size: 14px; }
-  .method-row { display: flex; gap: 8px; margin-bottom: 6px; align-items: flex-start; }
-  .method-kw { min-width: 60px; }
-
-  .phl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 8px; }
+  /* POSTHOG CARDS (Section 2) */
+  .phl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 8px; }
   .phl-item { background: #0d1e1a; border: 1px solid #1a4a3a; border-radius: 6px; padding: 10px 14px; }
-  .phl-brand { font-weight: 600; color: #39d353; font-size: 14px; }
+  .phl-item.dimmed { opacity: 0.55; }
+  .phl-brand { font-weight: 600; color: var(--teal); font-size: 14px; }
   .phl-meta { font-size: 11px; color: var(--muted); margin-top: 3px; }
   .phl-note { font-size: 11px; color: #5a9a6a; margin-top: 4px; }
-  .section-phl { background: #0a1e14; border: 1px solid #1a5c38; color: #39d353; }
+  .already-pm-badge { font-size: 10px; background: #1a0a2e; border: 1px solid #6e3fa3; color: var(--purple); padding: 1px 6px; border-radius: 3px; margin-left: 6px; vertical-align: middle; }
 
-  .toggle-chevron { transition: transform 0.2s; color: var(--muted); }
-  .open .toggle-chevron { transform: rotate(90deg); }
+  /* TRACKER TABLE (Section 3) */
+  .tracker-table { width: 100%; border-collapse: collapse; }
+  .tracker-table thead tr { background: var(--surface2); }
+  .tracker-table th { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.6px; color: var(--muted); padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); }
+  .tracker-table tbody tr { border-bottom: 1px solid var(--border); transition: background 0.1s; }
+  .tracker-table tbody tr:hover { background: var(--surface2); }
+  .tracker-table td { padding: 9px 14px; font-size: 13px; vertical-align: middle; }
+
+  .source-badge { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.4px; white-space: nowrap; }
+  .src-avoma   { background: #2d1e06; border: 1px solid #7a4f00; color: var(--warm); }
+  .src-posthog { background: #0a1e14; border: 1px solid #1a4a3a; color: var(--teal); }
+
+  .stage-select {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+    min-width: 148px;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%238b949e'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 28px;
+  }
+  .stage-select:focus { border-color: #58a6ff; }
+  .stage-select.s-lead-requested { border-color: #1f4b7a; color: #58a6ff; }
+  .stage-select.s-demo           { border-color: #7a4f00; color: var(--warm); }
+  .stage-select.s-onboarding     { border-color: #1a5c1a; color: var(--green); }
+  .stage-select.s-trial          { border-color: #6e3fa3; color: var(--purple); }
+  .stage-select.s-live           { border-color: #8b1a1a; color: var(--hot); }
+
+  .comment-input {
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    color: var(--text);
+    font-size: 12px;
+    padding: 5px 8px;
+    width: 100%;
+    outline: none;
+    font-family: inherit;
+    resize: none;
+    transition: border-color 0.15s;
+  }
+  .comment-input:hover  { border-color: var(--border); background: var(--surface2); }
+  .comment-input:focus  { border-color: #58a6ff; background: var(--surface2); }
+  .comment-input::placeholder { color: var(--muted); opacity: 0.6; }
+
+  .save-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); opacity: 0; transition: opacity 0.3s; display: inline-block; margin-left: 4px; vertical-align: middle; }
+  .save-dot.visible { opacity: 1; }
 </style>
 </head>
 <body>
 
 <div class="header">
-  <h1>ð¯ PM Intent Scoring Report</h1>
-  <div class="meta">Period: Apr 22 â May 7, 2026 &nbsp;Â·&nbsp; Source: Avoma Meeting Transcripts & Notes &nbsp;Â·&nbsp; Generated: May 7, 2026</div>
-  <div class="subtitle">
-    <strong>Scope:</strong> 128 target DS-tier brands. Transcripts/notes scanned for client-side PM intent keywords. GobbleCube CSM pitching statements excluded from scoring.
-    &nbsp;|&nbsp; <strong>Rubric:</strong> HIGH=10pts Â· MED=5pts Â· EARLY=3pts &nbsp;|&nbsp; HOTâ¥20 Â· WARM 10â19 Â· EARLY 3â9 Â· NO SIGNAL 0â2
-  </div>
+  <h1>ð¯ PM Lead Tracker</h1>
+  <div class="meta">Apr 22 â May 7, 2026 &nbsp;Â·&nbsp; Sources: Avoma transcripts + PostHog cross-sell events</div>
 </div>
 
-<div class="stats-row">
-  <div class="stat-card stat-hot">
-    <div class="num">1</div>
-    <div class="label">ð¥ HOT Leads</div>
-  </div>
-  <div class="stat-card stat-warm">
-    <div class="num">6</div>
-    <div class="label">ð¡ WARM Leads</div>
-  </div>
-  <div class="stat-card stat-early">
-    <div class="num">2</div>
-    <div class="label">ð± EARLY Signal</div>
-  </div>
-  <div class="stat-card stat-none">
-    <div class="num">28</div>
-    <div class="label">â No Signal</div>
-  </div>
-  <div class="stat-card stat-pm">
-    <div class="num">16</div>
-    <div class="label">â Already PM</div>
-  </div>
-  <div class="stat-card">
-    <div class="num" style="color:#3fb950">â</div>
-    <div class="label">ð All 34 Transcripts Scored</div>
-  </div>
-  <div class="stat-card" style="border-color:#1a5c38;">
-    <div class="num" style="color:#39d353">7</div>
-    <div class="label">ðï¸ PostHog Product-Led Leads</div>
-  </div>
-</div>
-
-<!-- METHODOLOGY -->
-<div class="methodology">
-  <h3>Scoring Rubric</h3>
-  <div class="method-row"><div class="method-kw"><span class="evidence-kw">HIGH 10pts</span></div><div>"performance marketing", "ad spend/ad budget/media spend", "ROAS", "CPC", "sponsored listings/ads", "campaign budget", "media buying"</div></div>
-  <div class="method-row"><div class="method-kw"><span class="evidence-kw evidence-kw-med">MED 5pts</span></div><div>"SOV gap", "visibility" in ads context, "losing share/visibility", "ranking dropped", "competitor is advertising", "why are we below/losing"</div></div>
-  <div class="method-row"><div class="method-kw"><span class="evidence-kw evidence-kw-exp">EARLY 3pts</span></div><div>"how do brands advertise", "should we be advertising", "quick commerce ads", "how to increase visibility (paid)", "what are others doing"</div></div>
-</div>
-
-<!-- POSTHOG PRODUCT-LED LEADS -->
+<!-- âââââââââââââââââââââââââââââââââââââââââââ -->
+<!-- SECTION 1: AVOMA + PERISCOPE LEADS          -->
+<!-- âââââââââââââââââââââââââââââââââââââââââââ -->
 <div class="section">
-  <div class="section-title section-phl">ðï¸ Product-Led Leads Â· Self-Qualified via PM Cross-Sell Modal (PostHog)</div>
-  <div style="font-size:12px;color:var(--muted);margin-bottom:10px;">
-    These brands clicked <strong style="color:#39d353">"Get In Touch"</strong> on the Performance Marketing cross-sell modal inside the GobbleCube platform â all from the <em>Category RCA</em> page. Source: PostHog event <code style="font-size:11px;background:#1c2128;padding:1px 5px;border-radius:3px;">Perf Marketing Cross Sell Get In Touch Success</code> Â· Apr 10 â Apr 27, 2026.
+  <div class="section-label sl-avoma">ð Avoma + Periscope Leads Â· 9 brands</div>
+
+  <!-- ââ HOT ââ -->
+  <div class="brand-card brand-card-hot">
+    <div class="brand-header" onclick="toggleCard(this)">
+      <div class="brand-name">XYXX</div>
+      <div class="score-bar-wrap">
+        <div class="score-bar"><div class="score-fill-hot" style="width:100%"></div></div>
+        <div class="score-num">30+ pts</div>
+      </div>
+      <div class="tier-badge badge-hot">HOT</div>
+      <div class="chevron">â¶</div>
+    </div>
+    <div class="brand-body">
+      <div class="meta-row">
+        <div class="meta-item">ð <span>May 4 &amp; Apr 28, 2026</span></div>
+        <div class="meta-item">ð¯ <span>2 PM-intent meetings</span></div>
+      </div>
+      <ul class="evidence-list">
+        <li class="evidence-item">
+          <span class="kw kw-high">HIGH Â· ROAS</span>
+          <span class="quote">"Our ROAS on Blinkit is terrible â we're spending but not converting. What's the benchmark?"</span>
+          <div class="who">Neha Kaushik / XYXX â May 4</div>
+        </li>
+        <li class="evidence-item">
+          <span class="kw kw-high">HIGH Â· Campaign Budget</span>
+          <span class="quote">"We need to figure out what our optimal campaign budget should be â we've been flying blind."</span>
+          <div class="who">XYXX â May 4</div>
+        </li>
+        <li class="evidence-item">
+          <span class="kw kw-high">HIGH Â· Sponsored Ads</span>
+          <span class="quote">"Why are our sponsored listings not showing up in top positions? Competitors seem to always be above us."</span>
+          <div class="who">XYXX â Apr 28</div>
+        </li>
+        <li class="evidence-item">
+          <span class="kw kw-med">MED Â· SOV Gap</span>
+          <span class="quote">"Our ad SOV is way lower than our organic share â that's a problem we need to fix."</span>
+          <div class="who">XYXX â multiple meetings</div>
+        </li>
+      </ul>
+      <div class="action-box">
+        <div class="al">ð¡ Recommended Action</div>
+        Book dedicated PM demo call. Client has strong product-market fit awareness and is budget-aware. Lead with ROAS benchmarks for innerwear on Blinkit/Zepto. Assign PM CSM immediately.
+      </div>
+    </div>
+  </div>
+
+  <!-- ââ WARM ââ -->
+  <div class="brand-card brand-card-warm">
+    <div class="brand-header" onclick="toggleCard(this)">
+      <div class="brand-name">BornGood</div>
+      <div class="score-bar-wrap">
+        <div class="score-bar"><div class="score-fill-warm" style="width:83%"></div></div>
+        <div class="score-num">20 pts</div>
+      </div>
+      <div class="tier-badge badge-warm">WARM</div>
+      <div class="chevron">â¶</div>
+    </div>
+    <div class="brand-body">
+      <div class="meta-row"><div class="meta-item">ð <span>Apr 29, 2026</span></div></div>
+      <ul class="evidence-list">
+        <li class="evidence-item">
+          <span class="kw kw-high">HIGH Â· Campaign Budget</span>
+          <span class="quote">"Split of campaign budget between in-app (Swiggy/Blinkit) and off-app (Meta/Google) channels was advised."</span>
+          <div class="who">GC CSM &amp; Client â Apr 29 notes</div>
+        </li>
+        <li class="evidence-item">
+          <span class="kw kw-med">MED Â· Ads SOV</span>
+          <span class="quote">"Brand loyalty ratio for detergent: category share 44% / ads SOV 29.3% = 1.5 â bidding on competitor keyword 'Harpik' can drive unbranded search conversions."</span>
+          <div class="who">Apr 29 meeting notes</div>
+        </li>
+        <li class="evidence-item">
+          <span class="kw kw-high">HIGH Â· Keyword Ads</span>
+          <span class="quote">Client action: "Compile keyword targeting list using GobbleCube â competitor keywords and generic keywords with higher category impression share."</span>
+          <div class="who">Arqum / BornGood â assigned action item</div>
+        </li>
+      </ul>
+      <div class="action-box">
+        <div class="al">ð¡ Recommended Action</div>
+        Client is already doing ads (SOV 29.3%) and actively working on keyword targeting. Pitch PM as efficiency/scale play. Follow up after Arqum completes the keyword list exercise.
+      </div>
+    </div>
+  </div>
+
+  <div class="brand-card brand-card-warm">
+    <div class="brand-header" onclick="toggleCard(this)">
+      <div class="brand-name">Dev Milk Foods (Frubon)</div>
+      <div class="score-bar-wrap">
+        <div class="score-bar"><div class="score-fill-warm" style="width:83%"></div></div>
+        <div class="score-num">20 pts</div>
+      </div>
+      <div class="tier-badge badge-warm">WARM</div>
+      <div class="chevron">â¶</div>
+    </div>
+    <div class="brand-body">
+      <div class="meta-row"><div class="meta-item">ð <span>May 7, 2026 Â· MBR</span></div></div>
+      <ul class="evidence-list">
+        <li class="evidence-item">
+          <span class="kw kw-med">MED Â· Visibility/Ad Context</span>
+          <span class="quote">Client discussed competitive ad visibility gaps and expressed need to understand why category leaders maintain visibility at lower apparent spend.</span>
+          <div class="who">Dev Milk Foods â May 7 MBR</div>
+        </li>
+        <li class="evidence-item">
+          <span class="kw kw-med">MED Â· SOV Gap</span>
+          <span class="quote">SOV dip identified across multiple categories â client actively asking about levers to recover visibility including paid options.</span>
+          <div class="who">May 7 MBR discussion</div>
+        </li>
+      </ul>
+      <div class="action-box">
+        <div class="al">ð¡ Recommended Action</div>
+        Introduce PM as the visibility recovery lever in next touchpoint. Use category SOV data to show how much paid share competitors are running vs organic.
+      </div>
+    </div>
+  </div>
+
+  <div class="brand-card brand-card-warm">
+    <div class="brand-header" onclick="toggleCard(this)">
+      <div class="brand-name">The Indus Valley</div>
+      <div class="score-bar-wrap">
+        <div class="score-bar"><div class="score-fill-warm" style="width:62%"></div></div>
+        <div class="score-num">15 pts</div>
+      </div>
+      <div class="tier-badge badge-warm">WARM</div>
+      <div class="chevron">â¶</div>
+    </div>
+    <div class="brand-body">
+      <div class="meta-row"><div class="meta-item">ð <span>Apr 22, 2026</span></div></div>
+      <ul class="evidence-list">
+        <li class="evidence-item">
+          <span class="kw kw-med">MED Â· SOV Gap</span>
+          <span class="quote">"We have better organic rank but their ads keep pushing us down in total visibility."</span>
+          <div class="who">The Indus Valley â Apr 22</div>
+        </li>
+        <li class="evidence-item">
+          <span class="kw kw-med">MED Â· Competitor Advertising</span>
+          <span class="quote">Client noted competitors running aggressive ad campaigns, questioning whether they need to match spend to maintain position.</span>
+          <div class="who">Apr 22 discussion</div>
+        </li>
+      </ul>
+      <div class="action-box">
+        <div class="al">ð¡ Recommended Action</div>
+        Strong PM pitch candidate â client has identified the competitive advertising gap themselves. Frame PM as "meeting the market where it is."
+      </div>
+    </div>
+  </div>
+
+  <div class="brand-card brand-card-warm">
+    <div class="brand-header" onclick="toggleCard(this)">
+      <div class="brand-name">Sid's Farm</div>
+      <div class="score-bar-wrap">
+        <div class="score-bar"><div class="score-fill-warm" style="width:62%"></div></div>
+        <div class="score-num">15 pts</div>
+      </div>
+      <div class="tier-badge badge-warm">WARM</div>
+      <div class="chevron">â¶</div>
+    </div>
+    <div class="brand-body">
+      <div class="meta-row"><div class="meta-item">ð <span>May 6, 2026</span></div></div>
+      <ul class="evidence-list">
+        <li class="evidence-item">
+          <span class="kw kw-med">MED Â· Visibility</span>
+          <span class="quote">Client discussed falling keyword visibility on Blinkit and asked whether the drop was organic or ad-driven by competitors.</span>
+          <div class="who">Sid's Farm â May 6</div>
+        </li>
+        <li class="evidence-item">
+          <span class="kw kw-med">MED Â· SOV</span>
+          <span class="quote">SOV delta between Sid's Farm and category leaders discussed; client concerned about competitors' paid share growing.</span>
+          <div class="who">May 6 discussion</div>
+        </li>
+      </ul>
+      <div class="action-box">
+        <div class="al">ð¡ Recommended Action</div>
+        Use competitive ad visibility data to show where they're losing ground to paid competitors. Propose PM trial with keyword-level bidding to defend current organic ranks.
+      </div>
+    </div>
+  </div>
+
+  <div class="brand-card brand-card-warm">
+    <div class="brand-header" onclick="toggleCard(this)">
+      <div class="brand-name">Dugar Overseas (DOPL)</div>
+      <div class="score-bar-wrap">
+        <div class="score-bar"><div class="score-fill-warm" style="width:54%"></div></div>
+        <div class="score-num">13 pts</div>
+      </div>
+      <div class="tier-badge badge-warm">WARM</div>
+      <div class="chevron">â¶</div>
+    </div>
+    <div class="brand-body">
+      <div class="meta-row"><div class="meta-item">ð <span>Apr 30, 2026</span></div></div>
+      <ul class="evidence-list">
+        <li class="evidence-item">
+          <span class="kw kw-med">MED Â· Competitor Advertising</span>
+          <span class="quote">Client noted competitor brands running heavy keyword ads in core category, asking if GobbleCube could help understand the pattern.</span>
+          <div class="who">Dugar Overseas â Apr 30</div>
+        </li>
+        <li class="evidence-item">
+          <span class="kw-exp">EARLY Â· Visibility</span>
+          <span class="quote">Client asked about tools to "boost our visibility" on Blinkit without purely relying on organic rank improvements.</span>
+          <div class="who">Apr 30 discussion</div>
+        </li>
+      </ul>
+      <div class="action-box">
+        <div class="al">ð¡ Recommended Action</div>
+        Follow up with competitive ad intelligence report. Client is curious but hasn't committed â show ROI potential first.
+      </div>
+    </div>
+  </div>
+
+  <div class="brand-card brand-card-warm">
+    <div class="brand-header" onclick="toggleCard(this)">
+      <div class="brand-name">Masterchow</div>
+      <div class="score-bar-wrap">
+        <div class="score-bar"><div class="score-fill-warm" style="width:41%"></div></div>
+        <div class="score-num">10 pts</div>
+      </div>
+      <div class="tier-badge badge-warm">WARM</div>
+      <div class="chevron">â¶</div>
+    </div>
+    <div class="brand-body">
+      <div class="meta-row"><div class="meta-item">ð <span>Apr 27, 2026</span></div></div>
+      <ul class="evidence-list">
+        <li class="evidence-item">
+          <span class="kw kw-high">HIGH Â· PM Intent</span>
+          <span class="quote">"Customer highlighted a long-standing relationship with GobbleCube and intent to expand to new platforms and performance marketing."</span>
+          <div class="who">Positive Moment â Masterchow, Apr 27 (Yash Lata / Akshun / Nikhil)</div>
+        </li>
+      </ul>
+      <div class="action-box">
+        <div class="al">ð¡ Recommended Action</div>
+        Client has explicitly stated PM expansion intent. Book PM demo after current DS work (category mapping fix). Strong relationship â warm intro to PM CSM is the right next step.
+      </div>
+    </div>
+  </div>
+
+  <!-- ââ EARLY ââ -->
+  <div class="brand-card brand-card-early">
+    <div class="brand-header" onclick="toggleCard(this)">
+      <div class="brand-name">Bambino Pasta</div>
+      <div class="score-bar-wrap">
+        <div class="score-bar"><div class="score-fill-early" style="width:25%"></div></div>
+        <div class="score-num">5 pts</div>
+      </div>
+      <div class="tier-badge badge-early">EARLY</div>
+      <div class="chevron">â¶</div>
+    </div>
+    <div class="brand-body">
+      <div class="meta-row"><div class="meta-item">ð <span>May 5, 2026</span></div></div>
+      <ul class="evidence-list">
+        <li class="evidence-item">
+          <span class="kw kw-med">MED Â· Visibility</span>
+          <span class="quote">Incidental discussion about visibility improvement â client engaged with concept but did not explicitly request PM features.</span>
+          <div class="who">May 5 meeting</div>
+        </li>
+      </ul>
+      <div class="action-box">
+        <div class="al">ð¡ Recommended Action</div>
+        Include in educational nurture flow. Share a case study on how similar pasta/food brands used PM to hold shelf position during peak seasons.
+      </div>
+    </div>
+  </div>
+
+  <div class="brand-card brand-card-early">
+    <div class="brand-header" onclick="toggleCard(this)">
+      <div class="brand-name">Dairy Day</div>
+      <div class="score-bar-wrap">
+        <div class="score-bar"><div class="score-fill-early" style="width:25%"></div></div>
+        <div class="score-num">5 pts</div>
+      </div>
+      <div class="tier-badge badge-early">EARLY</div>
+      <div class="chevron">â¶</div>
+    </div>
+    <div class="brand-body">
+      <div class="meta-row"><div class="meta-item">ð <span>Apr 30, 2026 Â· Onboarding</span></div></div>
+      <ul class="evidence-list">
+        <li class="evidence-item">
+          <span class="kw kw-exp">EARLY Â· SOV Concept</span>
+          <span class="quote">New brand employee (2nd week) doing platform onboarding â engaged with SOV and ad visibility concepts, asking "how do you calculate ad visibility?" and "34% overall ad visibility is not great."</span>
+          <div class="who">Riddhika K â Apr 30 onboarding call</div>
+        </li>
+      </ul>
+      <div class="action-box">
+        <div class="al">ð¡ Recommended Action</div>
+        New champion learning the platform â good time to introduce PM concepts gently. Schedule short PM capabilities session within 2â3 weeks once she's onboarded to DS.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- âââââââââââââââââââââââââââââââââââââââââââ -->
+<!-- SECTION 2: POSTHOG LEADS                   -->
+<!-- âââââââââââââââââââââââââââââââââââââââââââ -->
+<div class="section">
+  <div class="section-label sl-posthog">ðï¸ PostHog Leads Â· Self-Qualified via PM Cross-Sell Modal Â· 7 active leads</div>
+  <div style="font-size:12px;color:var(--muted);margin-bottom:12px;">
+    Brands that clicked <strong style="color:var(--teal)">"Get In Touch"</strong> on the PM cross-sell modal inside GobbleCube â all from the <em>Category RCA</em> page. Source: PostHog Â· Apr 10 â Apr 27, 2026.
   </div>
   <div class="phl-grid">
     <div class="phl-item">
       <div class="phl-brand">Wildstone</div>
       <div class="phl-meta">ð Apr 27 Â· Blinkit Â· Category RCA</div>
-      <div class="phl-note">Most recent lead â follow up immediately. Actively exploring PM while reviewing category performance.</div>
+      <div class="phl-note">Most recent lead â follow up immediately.</div>
     </div>
     <div class="phl-item">
       <div class="phl-brand">ITC Biscuits</div>
@@ -198,596 +470,220 @@
     <div class="phl-item">
       <div class="phl-brand">ITC Pranah</div>
       <div class="phl-meta">ð Apr 22 Â· Blinkit Â· Category RCA</div>
-      <div class="phl-note">Second ITC entity engaging with PM â coordinate outreach across both ITC accounts.</div>
+      <div class="phl-note">Second ITC entity â coordinate outreach across both ITC accounts.</div>
     </div>
     <div class="phl-item">
       <div class="phl-brand">Stroom</div>
       <div class="phl-meta">ð Apr 18 Â· Zepto Â· Category RCA</div>
-      <div class="phl-note">Clicked Get In Touch mid-April â may not have been followed up yet. Check CRM.</div>
+      <div class="phl-note">Clicked mid-April â may not have been followed up yet. Check CRM.</div>
     </div>
     <div class="phl-item">
       <div class="phl-brand">Skininspired</div>
       <div class="phl-meta">ð Apr 14 Â· Blinkit Â· Category RCA</div>
-      <div class="phl-note">No signal in Avoma transcripts â PM interest confirmed via product action instead.</div>
+      <div class="phl-note">No Avoma signal â PM interest confirmed via product action.</div>
     </div>
     <div class="phl-item">
       <div class="phl-brand">Lal Sweets</div>
       <div class="phl-meta">ð Apr 11 Â· Blinkit Â· Category RCA</div>
       <div class="phl-note">First-wave lead â confirm if outreach was initiated and outcome.</div>
     </div>
-    <div class="phl-item" style="opacity:0.6;">
-      <div class="phl-brand">Selectaisle (Cowsicaa) <span style="font-size:10px;background:#1a0a2e;border:1px solid #6e3fa3;color:#bc8cff;padding:2px 6px;border-radius:3px;margin-left:6px;">Already PM</span></div>
+    <div class="phl-item dimmed">
+      <div class="phl-brand">Selectaisle (Cowsicaa) <span class="already-pm-badge">Already PM</span></div>
       <div class="phl-meta">ð Apr 11 Â· Instamart Â· Category RCA</div>
-      <div class="phl-note">Already an active PM customer â cross-sell modal click reflects ongoing engagement, not a new lead.</div>
+      <div class="phl-note">Active PM customer â modal click reflects ongoing engagement, not a new lead.</div>
     </div>
     <div class="phl-item">
       <div class="phl-brand">Wellcore</div>
       <div class="phl-meta">ð Apr 10 Â· Blinkit Â· Category RCA</div>
-      <div class="phl-note">Earliest lead in this window â check if outreach was completed or dropped.</div>
+      <div class="phl-note">Earliest lead â check if outreach was completed or dropped.</div>
     </div>
   </div>
-  <div style="margin-top:10px;padding:10px 12px;background:#0a1e14;border:1px solid #1a4a3a;border-radius:6px;font-size:12px;color:#5a9a6a;">
-    â ï¸ <strong style="color:#39d353">Pattern:</strong> All 8 leads came from the Category RCA page. No new leads in the last 10+ days â investigate whether the cross-sell modal is still surfacing correctly after recent platform updates.
+  <div style="margin-top:10px;padding:9px 12px;background:#0a1e14;border:1px solid #1a4a3a;border-radius:6px;font-size:11px;color:#5a9a6a;">
+    â ï¸ All 8 leads came from the Category RCA page. No new PostHog leads in the last 10+ days â check if the cross-sell modal is still surfacing correctly.
   </div>
 </div>
 
-<!-- HOT -->
+<!-- âââââââââââââââââââââââââââââââââââââââââââ -->
+<!-- SECTION 3: MASTER TRACKER                  -->
+<!-- âââââââââââââââââââââââââââââââââââââââââââ -->
 <div class="section">
-  <div class="section-title section-hot">ð¥ HOT â 20+ pts Â· Immediate PM Outreach</div>
-
-  <!-- XYXX -->
-  <div class="brand-card brand-card-hot">
-    <div class="brand-header" onclick="toggleCard(this)">
-      <div class="brand-name">XYXX</div>
-      <div class="score-bar-wrap">
-        <div class="score-bar"><div class="score-fill-hot" style="width:100%"></div></div>
-        <div class="score-num">30+ pts</div>
-      </div>
-      <div class="tier-badge badge-hot">HOT</div>
-      <div class="toggle-chevron">â¶</div>
-    </div>
-    <div class="brand-body">
-      <div class="meta-row">
-        <div class="meta-item">ð <span>May 4, 2026</span> &amp; <span>Apr 28, 2026</span></div>
-        <div class="meta-item">ð¯ <span>2 PM-intent meetings</span></div>
-        <div class="meta-item">ð <span>UUID prefix: f93c923a (May 4), c84... (Apr 28)</span></div>
-      </div>
-      <ul class="evidence-list">
-        <li class="evidence-item">
-          <span class="evidence-kw">HIGH Â· ROAS</span>
-          <span class="evidence-quote">"Our ROAS on Blinkit is terrible â we're spending but not converting. What's the benchmark?"</span>
-          <div class="evidence-who">Client said â Neha Kaushik / XYXX, May 4 meeting</div>
-        </li>
-        <li class="evidence-item">
-          <span class="evidence-kw">HIGH Â· Campaign Budget</span>
-          <span class="evidence-quote">"We need to figure out what our optimal campaign budget should be â we've been flying blind."</span>
-          <div class="evidence-who">Client said â XYXX, May 4 meeting</div>
-        </li>
-        <li class="evidence-item">
-          <span class="evidence-kw">HIGH Â· Sponsored Ads</span>
-          <span class="evidence-quote">"Why are our sponsored listings not showing up in top positions? Competitors seem to always be above us."</span>
-          <div class="evidence-who">Client said â XYXX, Apr 28 meeting</div>
-        </li>
-        <li class="evidence-item">
-          <span class="evidence-kw evidence-kw-med">MED Â· SOV Gap</span>
-          <span class="evidence-quote">"Our ad SOV is way lower than our organic share â that's a problem we need to fix."</span>
-          <div class="evidence-who">Client said â XYXX, multiple meetings</div>
-        </li>
-      </ul>
-      <div class="action-box">
-        <div class="action-label">ð¡ Recommended Action</div>
-        Book dedicated PM demo call. Client has strong product-market fit awareness and is already budget-aware. Lead with ROAS benchmarks for innerwear category on Blinkit/Zepto. Assign PM CSM immediately.
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<!-- WARM -->
-<div class="section">
-  <div class="section-title section-warm">ð¡ WARM â 10â19 pts Â· Nurture &amp; Demo Ready</div>
-
-  <!-- BornGood -->
-  <div class="brand-card brand-card-warm">
-    <div class="brand-header" onclick="toggleCard(this)">
-      <div class="brand-name">BornGood</div>
-      <div class="score-bar-wrap">
-        <div class="score-bar"><div class="score-fill-warm" style="width:83%"></div></div>
-        <div class="score-num">20 pts</div>
-      </div>
-      <div class="tier-badge badge-warm">WARM</div>
-      <div class="toggle-chevron">â¶</div>
-    </div>
-    <div class="brand-body">
-      <div class="meta-row">
-        <div class="meta-item">ð <span>Apr 29, 2026</span></div>
-        <div class="meta-item">ð <span>UUID: 01ee45d8-3161-45b5-8b8c-57660ffa26f0</span></div>
-      </div>
-      <ul class="evidence-list">
-        <li class="evidence-item">
-          <span class="evidence-kw">HIGH Â· Campaign Budget</span>
-          <span class="evidence-quote">"Split of campaign budget between in-app (Swiggy/Blinkit) and off-app (Meta/Google) channels was advised."</span>
-          <div class="evidence-who">GC CSM &amp; Client action item â Apr 29 notes</div>
-        </li>
-        <li class="evidence-item">
-          <span class="evidence-kw evidence-kw-med">MED Â· Ads SOV</span>
-          <span class="evidence-quote">"Brand loyalty ratio for detergent: category share 44% / ads SOV 29.3% = 1.5 â bidding on competitor keyword 'Harpik' can drive unbranded search conversions."</span>
-          <div class="evidence-who">Apr 29 meeting notes</div>
-        </li>
-        <li class="evidence-item">
-          <span class="evidence-kw">HIGH Â· Keyword Ads</span>
-          <span class="evidence-quote">Client action item: "Compile keyword targeting list using GobbleCube â competitor keywords (SOV/market share &gt; 1) and generic keywords with higher category impression share."</span>
-          <div class="evidence-who">Arqum / BornGood â assigned action item</div>
-        </li>
-      </ul>
-      <div class="action-box">
-        <div class="action-label">ð¡ Recommended Action</div>
-        Client is already doing ads (ads SOV 29.3%) and actively working on keyword targeting. GobbleCube PM can automate and optimize what they're doing manually. Pitch as efficiency/scale play. Follow up after Arqum completes the keyword list exercise.
-      </div>
-    </div>
-  </div>
-
-  <!-- Dev Milk Foods -->
-  <div class="brand-card brand-card-warm">
-    <div class="brand-header" onclick="toggleCard(this)">
-      <div class="brand-name">Dev Milk Foods (Frubon)</div>
-      <div class="score-bar-wrap">
-        <div class="score-bar"><div class="score-fill-warm" style="width:83%"></div></div>
-        <div class="score-num">20 pts</div>
-      </div>
-      <div class="tier-badge badge-warm">WARM</div>
-      <div class="toggle-chevron">â¶</div>
-    </div>
-    <div class="brand-body">
-      <div class="meta-row">
-        <div class="meta-item">ð <span>May 7, 2026</span></div>
-        <div class="meta-item">ð <span>UUID prefix: 6e687aa7</span></div>
-      </div>
-      <ul class="evidence-list">
-        <li class="evidence-item">
-          <span class="evidence-kw evidence-kw-med">MED Â· Visibility/Ad Context</span>
-          <span class="evidence-quote">Client discussed competitive ad visibility gaps and expressed need to understand why category leaders maintain visibility at lower apparent spend.</span>
-          <div class="evidence-who">Client said â Dev Milk Foods, May 7 MBR</div>
-        </li>
-        <li class="evidence-item">
-          <span class="evidence-kw evidence-kw-med">MED Â· SOV Gap</span>
-          <span class="evidence-quote">SOV dip identified across multiple categories â client actively asking about levers to recover visibility including paid options.</span>
-          <div class="evidence-who">May 7 MBR discussion</div>
-        </li>
-      </ul>
-      <div class="action-box">
-        <div class="action-label">ð¡ Recommended Action</div>
-        Introduce PM as the visibility recovery lever in next touchpoint. Use category SOV data to show exactly how much paid share competitors are running vs organic.
-      </div>
-    </div>
-  </div>
-
-  <!-- The Indus Valley -->
-  <div class="brand-card brand-card-warm">
-    <div class="brand-header" onclick="toggleCard(this)">
-      <div class="brand-name">The Indus Valley</div>
-      <div class="score-bar-wrap">
-        <div class="score-bar"><div class="score-fill-warm" style="width:62%"></div></div>
-        <div class="score-num">15 pts</div>
-      </div>
-      <div class="tier-badge badge-warm">WARM</div>
-      <div class="toggle-chevron">â¶</div>
-    </div>
-    <div class="brand-body">
-      <div class="meta-row">
-        <div class="meta-item">ð <span>Apr 22, 2026</span></div>
-      </div>
-      <ul class="evidence-list">
-        <li class="evidence-item">
-          <span class="evidence-kw evidence-kw-med">MED Â· SOV Gap</span>
-          <span class="evidence-quote">Client expressed frustration about SOV gap vs competitors â "we have better organic rank but their ads keep pushing us down in total visibility."</span>
-          <div class="evidence-who">Client said â The Indus Valley, Apr 22</div>
-        </li>
-        <li class="evidence-item">
-          <span class="evidence-kw evidence-kw-med">MED Â· Competitor Advertising</span>
-          <span class="evidence-quote">Client noted that competitor brands appear to be running aggressive ad campaigns, questioning whether they need to match spend to maintain position.</span>
-          <div class="evidence-who">Apr 22 discussion</div>
-        </li>
-      </ul>
-      <div class="action-box">
-        <div class="action-label">ð¡ Recommended Action</div>
-        Strong candidate for PM pitch â client has identified the competitive advertising gap themselves. Frame PM as "meeting the market where it is."
-      </div>
-    </div>
-  </div>
-
-  <!-- Sid's Farm -->
-  <div class="brand-card brand-card-warm">
-    <div class="brand-header" onclick="toggleCard(this)">
-      <div class="brand-name">Sid's Farm</div>
-      <div class="score-bar-wrap">
-        <div class="score-bar"><div class="score-fill-warm" style="width:62%"></div></div>
-        <div class="score-num">15 pts</div>
-      </div>
-      <div class="tier-badge badge-warm">WARM</div>
-      <div class="toggle-chevron">â¶</div>
-    </div>
-    <div class="brand-body">
-      <div class="meta-row">
-        <div class="meta-item">ð <span>May 6, 2026</span></div>
-      </div>
-      <ul class="evidence-list">
-        <li class="evidence-item">
-          <span class="evidence-kw evidence-kw-med">MED Â· Visibility</span>
-          <span class="evidence-quote">Client discussed falling keyword visibility on Blinkit and asked whether the drop was organic or ad-driven by competitors.</span>
-          <div class="evidence-who">Client said â Sid's Farm, May 6</div>
-        </li>
-        <li class="evidence-item">
-          <span class="evidence-kw evidence-kw-med">MED Â· SOV</span>
-          <span class="evidence-quote">SOV delta between Sid's Farm and category leaders was discussed; client expressed concern about competitors' paid share growing.</span>
-          <div class="evidence-who">May 6 discussion</div>
-        </li>
-      </ul>
-      <div class="action-box">
-        <div class="action-label">ð¡ Recommended Action</div>
-        Use competitive ad visibility data to show client exactly where they're losing ground to paid competitors. Propose PM trial with keyword-level bidding to defend current organic ranks.
-      </div>
-    </div>
-  </div>
-
-  <!-- Dugar Overseas -->
-  <div class="brand-card brand-card-warm">
-    <div class="brand-header" onclick="toggleCard(this)">
-      <div class="brand-name">Dugar Overseas (DOPL)</div>
-      <div class="score-bar-wrap">
-        <div class="score-bar"><div class="score-fill-warm" style="width:54%"></div></div>
-        <div class="score-num">13 pts</div>
-      </div>
-      <div class="tier-badge badge-warm">WARM</div>
-      <div class="toggle-chevron">â¶</div>
-    </div>
-    <div class="brand-body">
-      <div class="meta-row">
-        <div class="meta-item">ð <span>Apr 30, 2026</span></div>
-      </div>
-      <ul class="evidence-list">
-        <li class="evidence-item">
-          <span class="evidence-kw evidence-kw-med">MED Â· Competitor Advertising</span>
-          <span class="evidence-quote">Client noted competitor brands were running heavy keyword ads in their core category, asking if GobbleCube could help them understand the pattern.</span>
-          <div class="evidence-who">Client said â Dugar Overseas, Apr 30</div>
-        </li>
-        <li class="evidence-item">
-          <span class="evidence-kw evidence-kw-exp">EARLY Â· Visibility</span>
-          <span class="evidence-quote">Client asked about tools to "boost our visibility" on Blinkit without purely relying on organic rank improvements.</span>
-          <div class="evidence-who">Apr 30 discussion</div>
-        </li>
-      </ul>
-      <div class="action-box">
-        <div class="action-label">ð¡ Recommended Action</div>
-        Follow up with competitive ad intelligence report showing what competitors are spending. Client is curious about paid channels but hasn't committed mentally â show ROI potential first.
-      </div>
-    </div>
-  </div>
-
-  <!-- Masterchow -->
-  <div class="brand-card brand-card-warm">
-    <div class="brand-header" onclick="toggleCard(this)">
-      <div class="brand-name">Masterchow</div>
-      <div class="score-bar-wrap">
-        <div class="score-bar"><div class="score-fill-warm" style="width:41%"></div></div>
-        <div class="score-num">10 pts</div>
-      </div>
-      <div class="tier-badge badge-warm">WARM</div>
-      <div class="toggle-chevron">â¶</div>
-    </div>
-    <div class="brand-body">
-      <div class="meta-row">
-        <div class="meta-item">ð <span>Apr 27, 2026</span></div>
-        <div class="meta-item">ð <span>UUID: a7e79c44-bf04-4646-89bf-03c1adb094f8</span></div>
-      </div>
-      <ul class="evidence-list">
-        <li class="evidence-item">
-          <span class="evidence-kw">HIGH Â· Performance Marketing Intent</span>
-          <span class="evidence-quote">"Customer highlighted a long-standing relationship with GobbleCube and intent to expand to new platforms and performance marketing."</span>
-          <div class="evidence-who">Positive Moment noted in meeting â Masterchow, Apr 27 (Yash Lata / Akshun / Nikhil)</div>
-        </li>
-      </ul>
-      <div class="action-box">
-        <div class="action-label">ð¡ Recommended Action</div>
-        Client has explicitly stated PM expansion intent. Follow up immediately post current DS work (category mapping fix) to book a PM demo. Strong relationship foundation â warm intro to PM CSM is the right next step.
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<!-- EARLY -->
-<div class="section">
-  <div class="section-title section-early">ð± EARLY Signal â 3â9 pts Â· Monitor &amp; Educate</div>
-
-  <div class="brand-card">
-    <div class="brand-header" onclick="toggleCard(this)">
-      <div class="brand-name">Bambino Pasta</div>
-      <div class="score-bar-wrap">
-        <div class="score-bar"><div class="score-fill-early" style="width:25%"></div></div>
-        <div class="score-num">5 pts</div>
-      </div>
-      <div class="tier-badge badge-early">EARLY</div>
-      <div class="toggle-chevron">â¶</div>
-    </div>
-    <div class="brand-body">
-      <div class="meta-row">
-        <div class="meta-item">ð <span>May 5, 2026</span></div>
-      </div>
-      <ul class="evidence-list">
-        <li class="evidence-item">
-          <span class="evidence-kw evidence-kw-med">MED Â· Visibility</span>
-          <span class="evidence-quote">Incidental discussion about visibility improvement â client engaged with concept but did not explicitly request PM features.</span>
-          <div class="evidence-who">May 5 meeting</div>
-        </li>
-      </ul>
-      <div class="action-box">
-        <div class="action-label">ð¡ Recommended Action</div>
-        Include in educational nurture flow. Share a case study on how similar pasta/food brands used PM to hold shelf position during peak seasons.
-      </div>
-    </div>
-  </div>
-
-  <div class="brand-card">
-    <div class="brand-header" onclick="toggleCard(this)">
-      <div class="brand-name">Dairy Day</div>
-      <div class="score-bar-wrap">
-        <div class="score-bar"><div class="score-fill-early" style="width:25%"></div></div>
-        <div class="score-num">5 pts</div>
-      </div>
-      <div class="tier-badge badge-early">EARLY</div>
-      <div class="toggle-chevron">â¶</div>
-    </div>
-    <div class="brand-body">
-      <div class="meta-row">
-        <div class="meta-item">ð <span>Apr 30, 2026</span></div>
-        <div class="meta-item">ð <span>UUID prefix: 704b2dfa</span></div>
-      </div>
-      <ul class="evidence-list">
-        <li class="evidence-item">
-          <span class="evidence-kw evidence-kw-exp">EARLY Â· SOV Concept</span>
-          <span class="evidence-quote">New brand employee (2nd week) doing platform onboarding â engaged with SOV and ad visibility concepts, asking "how do you calculate ad visibility?" and "34% overall ad visibility is not great â that means they're doing ads on ice cream keyword."</span>
-          <div class="evidence-who">Client said (Riddhika K) â Apr 30 onboarding call</div>
-        </li>
-      </ul>
-      <div class="action-box">
-        <div class="action-label">ð¡ Recommended Action</div>
-        New champion at Dairy Day is learning the platform â good time to introduce PM concepts gently. Schedule a short PM capabilities session within 2-3 weeks once she's onboarded to DS.
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- NO SIGNAL -->
-<div class="section">
-  <div class="section-title section-none">â No Signal Â· 0â2 pts</div>
-  <div class="no-signal-grid">
-    <div class="no-signal-item">
-      <div class="ns-brand">Henfruit / SGOI</div>
-      <div class="ns-date">May 7, 2026 Â· 2 meetings</div>
-      <div style="font-size:11px;color:var(--muted);margin-top:3px">Supply chain / OSD walkthrough â no PM keywords</div>
-    </div>
-    <div class="no-signal-item">
-      <div class="ns-brand">XYXX (Apr 29)</div>
-      <div class="ns-date">Apr 29, 2026</div>
-      <div style="font-size:11px;color:var(--muted);margin-top:3px">Supply Chain Module Demo only â zero PM keywords</piv>
-    </div>
-    <div class="no-signal-item">
-      <div class="ns-brand">BornGood (May 6)</div>
-      <div class="ns-date">May 6, 2026</div>
-      <div style="font-size:11px;color:var(--muted);margin-top:3px">Digital shelf feature demo â no PM discussion</div>
-    </div>
-    <div class="no-signal-item">
-      <div class="ns-brand">VR Derma / Tacheon</div>
-      <div class="ns-date">May 6, 2026</div>
-      <div style="font-size:11px;color:var(--muted);margin-top:3px">Dashboard query â inventory/listing discussion only</div>
-    </div>
-    <div class="no-signal-item">
-      <div class="ns-brand">Dev Milk Foods (Apr 30)</div>
-      <div class="ns-date">Apr 30, 2026</div>
-      <div style="font-size:11px;color:var(--muted);margin-top:3px">Separate meeting from May 7 â no PM keywords found</div>
-    </div>
-    <div class="no-signal-item">
-      <div class="ns-brand">LT Foods</div>
-      <div class="ns-date">Apr 30, 2026 Â· Onboarding Update</div>
-      <div style="font-size:11px;color:var(--muted);margin-top:3px">Billing/data issues only (Rashita Pandey, rashita.pandey@ltgroup.in) â 0 PM keywords</div>
-    </div>
-    <div class="no-signal-item">
-      <div class="ns-brand">Wellbeing Nutrition</div>
-      <div class="ns-date">Apr 30, 2026</div>
-      <div style="font-size:11px;color:var(--muted);margin-top:3px">No PM keywords identified in transcript</div>
-    </div>
-    <div class="no-signal-item">
-      <div class="ns-brand">Chemco Group</div>
-      <div class="ns-date">Apr 30, 2026 Â· Product Capabilities</div>
-      <div style="font-size:11px;color:var(--muted);margin-top:3px">Transcript too large to read (216K chars); notes not ready â conservative NO SIGNAL</div>
-    </div>
-    <div class="no-signal-item">
-      <div class="ns-brand">Layer'r Wottagirl</div>
-      <div class="ns-date">Apr 30, 2026</div>
-      <div style="font-size:11px;color:var(--muted);margin-top:3px">No PM keywords identified in transcript</div>
-    </div>
-    <div class="no-signal-item">
-      <div class="ns-brand">Mars Petcare</div>
-      <div class="ns-date">Apr 30, 2026</div>
-      <div style="font-size:11px;color:var(--muted);margin-top:3px">No PM keywords identified in transcript</div>
-    </div>
-    <div class="no-signal-item">
-      <div class="ns-brand">Hamdard</div>
-      <div class="ns-date">Apr 28, 2026 Â· Platform Demo</div>
-      <div style="font-size:11px;color:var(--muted);margin-top:3px">Digital Shelf pre-sales demo â PM not in scope; transcript too large (182K chars)</div>
-    </div>
-    <div class="no-signal-item">
-      <div class="ns-brand">Let's Try</div>
-      <div class="ns-date">Apr 28, 2026</div>
-      <div style="font-size:11px;color:var(--muted);margin-top:3px">UUID unresolved after full pagination â could not retrieve transcript</div>
-    </div>
-    <div class="no-signal-item">
-      <div class="ns-brand">The Minimalist</div>
-      <div class="ns-date">Apr 28, 2026 Â· GCC Scope</div>
-      <div style="font-size:11px;color:var(--muted);margin-top:3px">UAE/noon/Amazon scope only â not India QC. PM-aware brand but not a QC PM lead</div>
-    </div>
-    <div class="no-signal-item">
-      <div class="ns-brand">SUGAR Cosmetics</div>
-      <div class="ns-date">Apr 27, 2026</div>
-      <div style="font-size:11px;color:var(--muted);margin-top:3px">UUID unresolved after full pagination â could not retrieve transcript</div>
-    </div>
-    <div class="no-signal-item">
-      <div class="ns-brand">Bombay Shaving Company</div>
-      <div class="ns-date">May 4, 2026</div>
-      <div style="font-size:11px;color:var(--muted);margin-top:3px">Transcript too large (123K chars); notes not ready â conservative NO SIGNAL</div>
-    </div>
-    <div class="no-signal-item">
-      <div class="ns-brand">Carlton London</div>
-      <div class="ns-date">May 4, 2026</div>
-      <div style="font-size:11px;color:var(--muted);margin-top:3px">Transcript too large (95K chars); notes not ready â conservative NO SIGNAL</div>
-    </div>
-    <div class="no-signal-item">
-      <div class="ns-brand">Chumbak</div>
-      <div class="ns-date">May 4, 2026</div>
-      <div style="font-size:11px;color:var(--muted);margin-top:3px">Transcript too large (87K chars); notes not ready â conservative NO SIGNAL</div>
-    </div>
-    <div class="no-signal-item">
-      <div class="ns-brand">Kwality Walls / Magnum</div>
-      <div class="ns-date">May 4, 2026</div>
-      <div style="font-size:11px;color:var(--muted);margin-top:3px">No PM keywords identified in transcript</div>
-    </div>
-    <div class="no-signal-item">
-      <div class="ns-brand">Shudh Online</div>
-      <div class="ns-date">May 4, 2026 Â· Incubator</div>
-      <div style="font-size:11px;color:var(--muted);margin-top:3px">Incubator onboarding â no PM keywords identified</div>
-    </div>
-    <div class="no-signal-item">
-      <div class="ns-brand">4700 BC</div>
-      <div class="ns-date">May 5, 2026</div>
-      <div style="font-size:11px;color:var(--muted);margin-top:3px">No PM keywords identified in transcript</div>
-    </div>
-    <div class="no-signal-item">
-      <div class="ns-brand">Flawsome</div>
-      <div class="ns-date">May 5, 2026</div>
-      <div style="font-size:11px;color:var(--muted);margin-top:3px">No PM keywords identified in transcript</div>
-    </div>
-    <div class="no-signal-item">
-      <div class="ns-brand">Happy Cultures</div>
-      <div class="ns-date">May 5, 2026 Â· Weekly Connect</div>
-      <div style="font-size:11px;color:var(--muted);margin-top:3px">No PM keywords identified in transcript</div>
-    </div>
-    <div class="no-signal-item">
-      <div class="ns-brand">MOOZ</div>
-      <div class="ns-date">May 5 &amp; May 1, 2026</div>
-      <div style="font-size:11px;color:var(--muted);margin-top:3px">May 5: no PM keywords; May 1 transcript too large (101K chars) â conservative NO SIGNAL</div>
-    </div>
-    <div class="no-signal-item">
-      <div class="ns-brand">PeeSafe</div>
-      <div class="ns-date">May 5 &amp; May 1, 2026</div>
-      <div style="font-size:11px;color:var(--muted);margin-top:3px">May 5 transcript too large (65K chars); notes not ready â conservative NO SIGNAL</div>
-    </div>
-    <div class="no-signal-item">
-      <div class="ns-brand">Troovy</div>
-      <div class="ns-date">May 6, 2026 Â· MBR</div>
-      <div style="font-size:11px;color:var(--muted);margin-top:3px">Transcript too large (74K chars); notes not ready â conservative NO SIGNAL</div>
-    </div>
-    <div class="no-signal-item">
-      <div class="ns-brand">Belgian Waffle Co</div>
-      <div class="ns-date">May 6, 2026 Â· Product Capabilities</div>
-      <div style="font-size:11px;color:var(--muted);margin-top:3px">No PM keywords identified in transcript</div>
-    </div>
-    <div class="no-signal-item">
-      <div class="ns-brand">Daily Objects</div>
-      <div class="ns-date">May 5 &amp; May 6, 2026 Â· Platform Demo</div>
-      <div style="font-size:11px;color:var(--muted);margin-top:3px">Digital Shelf pre-sales demo â PM not in scope; transcript too large (101K chars)</div>
-    </div>
-  </div>
-</div>
-
-<!-- EXISTING PM CUSTOMERS -->
-<div class="section">
-  <div class="section-title section-pm">â Already PM Customers Â· Exclude from Lead Outreach</div>
-  <div class="pm-grid">
-    <div class="pm-item">
-      <div class="pm-brand">Ocean Beverages</div>
-      <div class="pm-note">Purpose: "Perf - Conv - Weekly Call" â active PM customer with weekly review cadence</div>
-    </div>
-    <div class="pm-item">
-      <div class="pm-brand">Insight Cosmetics</div>
-      <div class="pm-note">PM dashboard walkthrough + ROAS discussions for existing live campaigns; Rishikesh (PM Mgr) added to calls</div>
-    </div>
-    <div class="pm-item">
-      <div class="pm-brand">Cowsicaa (Selectaisle)</div>
-      <div class="pm-note">Apr 30 meeting subject "PM-GC &lt;&gt; Selectaisle | Product Walkthrough" â active PM product walkthrough</div>
-    </div>
-    <div class="pm-item">
-      <div class="pm-brand">Nua Woman</div>
-      <div class="pm-note">May 6 meeting subject "PM- Nua &lt;&gt; GC" â active PM customer</div>
-    </div>
-    <div class="pm-item">
-      <div class="pm-brand">Indic Wisdom</div>
-      <div class="pm-note">May 4: Active PM trial â discussing ROAS (own campaigns), ruleset setup, campaign budget rules. "This is actual money being spent." CSM to be assigned post-trial.</div>
-    </div>
-    <div class="pm-item">
-      <div class="pm-brand">Mosaic Wellness</div>
-      <div class="pm-note">Apr 27 Â· Purpose "Perf - Trial - Demo" â configuring campaign budget rules (dayparting: 10% morning, 40% afternoon, 40% evening 5â11 PM)</div>
-    </div>
-    <div class="pm-item">
-      <div class="pm-brand">What's Up Wellness</div>
-      <div class="pm-note">Apr 29 Â· Active PM deal in HubSpot PM pipeline â already evaluating GC PM automation; excluded from outreach</div>
-    </div>
-    <div class="pm-item">
-      <div class="pm-brand">Kapiva</div>
-      <div class="pm-note">May 5 Â· Active performance marketing features in use â campaign management and ROAS tracking confirmed</div>
-    </div>
-    <div class="pm-item">
-      <div class="pm-brand">Deconstruct</div>
-      <div class="pm-note">May 5 Â· Active PM customer â confirmed from transcript analysis</div>
-    </div>
-    <div class="pm-item">
-      <div class="pm-brand">The Face Shop (Holistique)</div>
-      <div class="pm-note">Apr 30 Â· Active PM deal in HubSpot PM pipeline (upsell/expansion pipeline) â excluded from outreach</div>
-    </div>
-    <div class="pm-item">
-      <div class="pm-brand">Nu Republic</div>
-      <div class="pm-note">Apr 27 Â· Active PM deal in HubSpot PM pipeline â excluded from outreach</div>
-    </div>
-    <div class="pm-item">
-      <div class="pm-brand">The Whole Truth Foods (TWT)</div>
-      <div class="pm-note">May 5 Â· Actively managing own campaigns â "I want to create campaigns on my own... 33 campaigns... ROI product group" â confirmed PM user</div>
-    </div>
-    <div class="pm-item">
-      <div class="pm-brand">Tulua</div>
-      <div class="pm-note">May 6 Â· Active PM deal in HubSpot PM pipeline (3 active deals) â excluded from outreach</div>
-    </div>
-    <div class="pm-item">
-      <div class="pm-brand">Plum (teampureplay)</div>
-      <div class="pm-note">May 5 Â· Active PM deal in HubSpot PM pipeline â excluded from outreach</div>
-    </div>
-    <div class="pm-item">
-      <div class="pm-brand">bLABLIBLU / Blabliblu</div>
-      <div class="pm-note">May 5 Â· Active PM deal in HubSpot PM pipeline â excluded from outreach</div>
-    </div>
-    <div class="pm-item">
-      <div class="pm-brand">Praakritik Organics</div>
-      <div class="pm-note">Apr 27 Â· Active PM deal in HubSpot PM pipeline â excluded from outreach</div>
-    </div>
-  </div>
-</div>
-
-<!-- SCORING COMPLETE NOTE -->
-<div style="margin-bottom:24px;padding:14px 16px;background:#0d1e0d;border:1px solid #1a5c1a;border-radius:8px;font-size:13px;color:#3fb950;">
-  â <strong>All 34 transcripts scored.</strong> Second-pass complete â May 8, 2026. 10 brands classified as Already PM (incl. 6 in HubSpot PM pipeline). 9 large transcripts scored conservatively as NO SIGNAL (Avoma notes not yet ready; transcripts exceeded 25K token read limit). 2 UUIDs unresolved after full pagination (Let's Try, SUGAR). XYXX's 2 additional meetings (May 4 PSL, May 7 MBR) rolled into existing XYXX HOT score.
-</div>
-
-<div style="margin-top:24px;padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:8px;font-size:12px;color:var(--muted);">
-  <strong style="color:var(--text)">Coverage note:</strong> All 34 target transcripts scored across 2 passes (May 7â8, 2026). Total meetings scanned: 51 in window. Enterprise brands (L'OrÃ©al, ITC, Coca-Cola, HUL, Piramal, Tata 1mg, Dabur) deprioritized â outside 128-brand DS target list. HubSpot PM pipeline exclusions applied (pipeline IDs 1877012177 &amp; 2185338555): What's Up Wellness, Tulua, The Face Shop/Holistique, bLABLIBLU, Praakritik Organics, Plum, Nu Republic, Insight Cosmetics moved to Already PM. 9 transcripts exceeding 25K token read limit scored conservatively as NO SIGNAL (Carlton London, Chumbak, PeeSafe, BSC, Chemco, MOOZ May 1, Troovy, Hamdard, Daily Objects) â recommend re-scoring once Avoma meeting notes are published.
+  <div class="section-label sl-tracker">ð Master Tracker Â· All Leads <span id="save-indicator" class="save-dot"></span></div>
+  <table class="tracker-table">
+    <thead>
+      <tr>
+        <th style="width:30%">Brand</th>
+        <th style="width:12%">Source</th>
+        <th style="width:22%">Stage</th>
+        <th>Notes / Comments</th>
+      </tr>
+    </thead>
+    <tbody id="tracker-body">
+      <!-- Avoma leads -->
+      <tr>
+        <td><strong>XYXX</strong></td>
+        <td><span class="source-badge src-avoma">Avoma</span></td>
+        <td><select class="stage-select" onchange="saveStage(this,'XYXX')" id="s-XYXX"><option value="">â Select stage</option><option value="lead-requested">Lead Requested</option><option value="demo">Demo</option><option value="onboarding">Onboarding</option><option value="trial">Trial</option><option value="live">Live</option></select></td>
+        <td><textarea class="comment-input" rows="1" placeholder="Add noteâ¦" oninput="saveComment(this,'XYXX')" id="c-XYXX"></textarea></td>
+      </tr>
+      <tr>
+        <td><strong>BornGood</strong></td>
+        <td><span class="source-badge src-avoma">Avoma</span></td>
+        <td><select class="stage-select" onchange="saveStage(this,'BornGood')" id="s-BornGood"><option value="">â Select stage</option><option value="lead-requested">Lead Requested</option><option value="demo">Demo</option><option value="onboarding">Onboarding</option><option value="trial">Trial</option><option value="live">Live</option></select></td>
+        <td><textarea class="comment-input" rows="1" placeholder="Add noteâ¦" oninput="saveComment(this,'BornGood')" id="c-BornGood"></textarea></td>
+      </tr>
+      <tr>
+        <td><strong>Dev Milk Foods (Frubon)</strong></td>
+        <td><span class="source-badge src-avoma">Avoma</span></td>
+        <td><select class="stage-select" onchange="saveStage(this,'DevMilkFoods')" id="s-DevMilkFoods"><option value="">â Select stage</option><option value="lead-requested">Lead Requested</option><option value="demo">Demo</option><option value="onboarding">Onboarding</option><option value="trial">Trial</option><option value="live">Live</option></select></td>
+        <td><textarea class="comment-input" rows="1" placeholder="Add noteâ¦" oninput="saveComment(this,'DevMilkFoods')" id="c-DevMilkFoods"></textarea></td>
+      </tr>
+      <tr>
+        <td><strong>The Indus Valley</strong></td>
+        <td><span class="source-badge src-avoma">Avoma</span></td>
+        <td><select class="stage-select" onchange="saveStage(this,'IndusValley')" id="s-IndusValley"><option value="">â Select stage</option><option value="lead-requested">Lead Requested</option><option value="demo">Demo</option><option value="onboarding">Onboarding</option><option value="trial">Trial</option><option value="live">Live</option></select></td>
+        <td><textarea class="comment-input" rows="1" placeholder="Add noteâ¦" oninput="saveComment(this,'IndusValley')" id="c-IndusValley"></textarea></td>
+      </tr>
+      <tr>
+        <td><strong>Sid's Farm</strong></td>
+        <td><span class="source-badge src-avoma">Avoma</span></td>
+        <td><select class="stage-select" onchange="saveStage(this,'SidsFarm')" id="s-SidsFarm"><option value="">â Select stage</option><option value="lead-requested">Lead Requested</option><option value="demo">Demo</option><option value="onboarding">Onboarding</option><option value="trial">Trial</option><option value="live">Live</option></select></td>
+        <td><textarea class="comment-input" rows="1" placeholder="Add noteâ¦" oninput="saveComment(this,'SidsFarm')" id="c-SidsFarm"></textarea></td>
+      </tr>
+      <tr>
+        <td><strong>Dugar Overseas (DOPL)</strong></td>
+        <td><span class="source-badge src-avoma">Avoma</span></td>
+        <td><select class="stage-select" onchange="saveStage(this,'DugarOverseas')" id="s-DugarOverseas"><option value="">â Select stage</option><option value="lead-requested">Lead Requested</option><option value="demo">Demo</option><option value="onboarding">Onboarding</option><option value="trial">Trial</option><option value="live">Live</option></select></td>
+        <td><textarea class="comment-input" rows="1" placeholder="Add noteâ¦" oninput="saveComment(this,'DugarOverseas')" id="c-DugarOverseas"></textarea></td>
+      </tr>
+      <tr>
+        <td><strong>Masterchow</strong></td>
+        <td><span class="source-badge src-avoma">Avoma</span></td>
+        <td><select class="stage-select" onchange="saveStage(this,'Masterchow')" id="s-Masterchow"><option value="">â Select stage</option><option value="lead-requested">Lead Requested</option><option value="demo">Demo</option><option value="onboarding">Onboarding</option><option value="trial">Trial</option><option value="live">Live</option></select></td>
+        <td><textarea class="comment-input" rows="1" placeholder="Add noteâ¦" oninput="saveComment(this,'Masterchow')" id="c-Masterchow"></textarea></td>
+      </tr>
+      <tr>
+        <td><strong>Bambino Pasta</strong></td>
+        <td><span class="source-badge src-avoma">Avoma</span></td>
+        <td><select class="stage-select" onchange="saveStage(this,'BambinoPasta')" id="s-BambinoPasta"><option value="">â Select stage</option><option value="lead-requested">Lead Requested</option><option value="demo">Demo</option><option value="onboarding">Onboarding</option><option value="trial">Trial</option><option value="live">Live</option></select></td>
+        <td><textarea class="comment-input" rows="1" placeholder="Add noteâ¦" oninput="saveComment(this,'BambinoPasta')" id="c-BambinoPasta"></textarea></td>
+      </tr>
+      <tr>
+        <td><strong>Dairy Day</strong></td>
+        <td><span class="source-badge src-avoma">Avoma</span></td>
+        <td><select class="stage-select" onchange="saveStage(this,'DairyDay')" id="s-DairyDay"><option value="">â Select stage</option><option value="lead-requested">Lead Requested</option><option value="demo">Demo</option><option value="onboarding">Onboarding</option><option value="trial">Trial</option><option value="live">Live</option></select></td>
+        <td><textarea class="comment-input" rows="1" placeholder="Add noteâ¦" oninput="saveComment(this,'DairyDay')" id="c-DairyDay"></textarea></td>
+      </tr>
+      <!-- PostHog leads -->
+      <tr>
+        <td><strong>Wildstone</strong></td>
+        <td><span class="source-badge src-posthog">PostHog</span></td>
+        <td><select class="stage-select" onchange="saveStage(this,'Wildstone')" id="s-Wildstone"><option value="">â Select stage</option><option value="lead-requested">Lead Requested</option><option value="demo">Demo</option><option value="onboarding">Onboarding</option><option value="trial">Trial</option><option value="live">Live</option></select></td>
+        <td><textarea class="comment-input" rows="1" placeholder="Add noteâ¦" oninput="saveComment(this,'Wildstone')" id="c-Wildstone"></textarea></td>
+      </tr>
+      <tr>
+        <td><strong>ITC Biscuits</strong></td>
+        <td><span class="source-badge src-posthog">PostHog</span><,td>
+        <td><select class="stage-select" onchange="saveStage(this,'ITCBiscuits')" id="s-ITCBiscuits"><option value="">â Select stage</option><option value="lead-requested">Lead Requested</option><option value="demo">Demo</option><option value="onboarding">Onboarding</option><option value="trial">Trial</option><option value="live">Live</option></select></td>
+        <td><textarea class="comment-input" rows="1" placeholder="Add noteâ¦" oninput="saveComment(this,'ITCBiscuits')" id="c-ITCBiscuits"></textarea></td>
+      </tr>
+      <tr>
+        <td><strong>ITC Pranah</strong></td>
+        <td><span class="source-badge src-posthog">PostHog</span></td>
+        <td><select class="stage-select" onchange="saveStage(this,'ITCPranah')" id="s-ITCPranah"><option value="">â Select stage</option><option value="lead-requested">Lead Requested</option><option value="demo">Demo</option><option value="onboarding">Onboarding</option><option value="trial">Trial</option><option value="live">Live</option></select></td>
+        <td><textarea class="comment-input" rows="1" placeholder="Add noteâ¦" oninput="saveComment(this,'ITCPranah')" id="c-ITCPranah"></textarea></td>
+      </tr>
+      <tr>
+        <td><strong>Stroom</strong></td>
+        <td><span class="source-badge src-posthog">PostHog</span></td>
+        <td><select class="stage-select" onchange="saveStage(this,'Stroom')" id="s-Stroom"><option value="">â Select stage</option><option value="lead-requested">Lead Requested</option><option value="demo">Demo</option><option value="onboarding">Onboarding</option><option value="trial">Trial</option><option value="live">Live</option></select></td>
+        <td><textarea class="comment-input" rows="1" placeholder="Add noteâ¦" oninput="saveComment(this,'Stroom')" id="c-Stroom"></textarea></td>
+      </tr>
+      <tr>
+        <td><strong>Skininspired</strong></td>
+        <td><span class="source-badge src-posthog">PostHog</span></td>
+        <td><select class="stage-select" onchange="saveStage(this,'Skininspired')" id="s-Skininspired"><option value="">â Select stage</option><option value="lead-requested">Lead Requested</option><option value="demo">Demo</option><option value="onboarding">Onboarding</option><option value="trial">Trial</option><option value="live">Live</option></select></td>
+        <td><textarea class="comment-input" rows="1" placeholder="Add noteâ¦" oninput="saveComment(this,'Skininspired')" id="c-Skininspired"></textarea></td>
+      </tr>
+      <tr>
+        <td><strong>Lal Sweets</strong></td>
+        <td><span class="source-badge src-posthog">PostHog</span></td>
+        <td><select class="stage-select" onchange="saveStage(this,'LalSweets')" id="s-LalSweets"><option value="">â Select stage</option><option value="lead-requested">Lead Requested</option><option value="demo">Demo</option><option value="onboarding">Onboarding</option><option value="trial">Trial</option><option value="live">Live</option></select></td>
+        <td><textarea class="comment-input" rows="1" placeholder="Add noteâ¦" oninput="saveComment(this,'LalSweets')" id="c-LalSweets"></textarea></td>
+      </tr>
+      <tr>
+        <td><strong>Wellcore</strong></td>
+        <td><span class="source-badge src-posthog">PostHog</span></td>
+        <td><select class="stage-select" onchange="saveStage(this,'Wellcore')" id="s-Wellcore"><option value="">â Select stage</option><option value="lead-requested">Lead Requested</option><option value="demo">Demo</option><option value="onboarding">Onboarding</option><option value="trial">Trial</option><option value="live">Live</option></select></td>
+        <td><textarea class="comment-input" rows="1" placeholder="Add noteâ¦" oninput="saveComment(this,'Wellcore')" id="c-Wellcore"></textarea></td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
 <script>
+// ââ Stage colour classes
+const stageClass = {
+  'lead-requested': 's-lead-requested',
+  'demo':           's-demo',
+  'onboarding':     's-onboarding',
+  'trial':          's-trial',
+  'live':           's-live'
+};
+
+function saveStage(sel, key) {
+  const val = sel.value;
+  // Apply colour
+  sel.className = 'stage-select' + (val ? ' ' + (stageClass[val] || '') : '');
+  localStorage.setItem('pm_stage_' + key, val);
+  flashSave();
+}
+
+function saveComment(ta, key) {
+  localStorage.setItem('pm_comment_' + key, ta.value);
+  // Auto-resize
+  ta.style.height = 'auto';
+  ta.style.height = ta.scrollHeight + 'px';
+  flashSave();
+}
+
+let flashTimer;
+function flashSave() {
+  const dot = document.getElementById('save-indicator');
+  dot.classList.add('visible');
+  clearTimeout(flashTimer);
+  flashTimer = setTimeout(() => dot.classList.remove('visible'), 1200);
+}
+
+// ââ Restore saved values on load
+const brands = ['XYXX','BornGood','DevMilkFoods','IndusValley','SidsFarm','DugarOverseas',
+                 'Masterchow','BambinoPasta','DairyDay',
+                 'Wildstone','ITCBiscuits','ITCPranah','Stroom','Skininspired','LalSweets','Wellcore'];
+
+window.addEventListener('DOMContentLoaded', () => {
+  brands.forEach(key => {
+    const savedStage = localStorage.getItem('pm_stage_' + key);
+    const savedComment = localStorage.getItem('pm_comment_' + key);
+    const sel = document.getElementById('s-' + key);
+    const ta  = document.getElementById('c-' + key);
+    if (sel && savedStage) {
+      sel.value = savedStage;
+      sel.className = 'stage-select' + (savedStage ? ' ' + (stageClass[savedStage] || '') : '');
+    }
+    if (ta && savedComment) {
+      ta.value = savedComment;
+      ta.style.height = 'auto';
+      ta.style.height = ta.scrollHeight + 'px';
+    }
+  });
+});
+
+// ââ Card toggle
 function toggleCard(header) {
   const body = header.nextElementSibling;
-  const chevron = header.querySelector('.toggle-chevron');
+  const ch = header.querySelector('.chevron');
   const isOpen = body.classList.contains('open');
   body.classList.toggle('open', !isOpen);
-  if (!isOpen) { chevron.style.transform = 'rotate(90deg)'; } 
-  else { chevron.style.transform = 'rotate(0deg)'; }
+  ch.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(90deg)';
 }
 </script>
 </body>

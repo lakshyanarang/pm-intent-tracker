@@ -165,6 +165,44 @@
   <!-- &#9472;&#9472; HOT &#9472;&#9472; -->
   <div class="brand-card brand-card-hot">
     <div class="brand-header" onclick="toggleCard(this)">
+      <div class="brand-name">Haleon</div>
+      <div class="score-bar-wrap">
+        <div class="score-bar"><div class="score-fill-hot" style="width:100%"></div></div>
+        <div class="score-text">75 pts</div>
+        <div class="badge badge-hot">HOT</div>
+        <div class="chev">&#9656;</div>
+      </div>
+    </div>
+    <div class="brand-body">
+      <div class="meeting-info">
+        <span class="meet-date">May 20</span>
+        <span class="kw-chips"><span class="kw-chip">performance marketing</span><span class="kw-chip">CPM</span><span class="kw-chip">SOV</span><span class="kw-chip">campaign optimization</span><span class="kw-chip">bids</span><span class="kw-chip">competitor ads</span></span>
+      </div>
+      <div class="quote">&ldquo;Emphasize performance marketing as key lever over pricing. Weekly campaign optimization via CPM, SOV, OSI data, adjusting budgets and bids. Facing competitive heat from Colgate ad deployments.&rdquo;</div>
+      <div class="rec-action"><strong>Recommended:</strong> Cross-sell GC Perf Marketing module. They are scoping with Hiveminds as execution partner - position GC as strategic layer. Run portfolio audit + 2% share lift proposal for sensitivity/whitening/kids toothpaste.</div>
+    </div>
+  </div>
+  <div class="brand-card brand-card-hot">
+    <div class="brand-header" onclick="toggleCard(this)">
+      <div class="brand-name">Godrej Jersey</div>
+      <div class="score-bar-wrap">
+        <div class="score-bar"><div class="score-fill-hot" style="width:100%"></div></div>
+        <div class="score-text">65 pts</div>
+        <div class="badge badge-hot">HOT</div>
+        <div class="chev">&#9656;</div>
+      </div>
+    </div>
+    <div class="brand-body">
+      <div class="meeting-info">
+        <span class="meet-date">May 20</span>
+        <span class="kw-chips"><span class="kw-chip">banner ads</span><span class="kw-chip">ad positions</span><span class="kw-chip">campaign data</span><span class="kw-chip">SOV</span><span class="kw-chip">ranking</span></span>
+      </div>
+      <div class="quote">&ldquo;Gaps in banner ad attribution and ad positions were noted, emphasizing the need for campaign-level data validation. Model excludes PCA banner impressions, leading to undercounted competitive SOV.&rdquo;</div>
+      <div class="rec-action"><strong>Recommended:</strong> Pitch PM dashboard - sponsored ads tracking, campaign-level SOV measurement, and ad-position monitoring. Send campaign-level data integration spec to Anilprasad K.</div>
+    </div>
+  </div>
+  <div class="brand-card brand-card-hot">
+    <div class="brand-header" onclick="toggleCard(this)">
       <div class="brand-name">XYXX</div>
       <div class="score-bar-wrap">
         <div class="score-bar"><div class="score-fill-hot" style="width:100%"></div></div>
@@ -611,12 +649,24 @@
             <tr>
         <td><strong>SupplySix</strong></td>
         <td><span class="source-badge src-avoma">Avoma</span></td>
-        <td><select id="s-SupplySix" class="stage-select" onchange="saveStage(this,'SupplySix')"><option value="">&#8212; Select stage</option><option value="demo_done">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="lost">Didn't Convert</option><option value="not_responsive">Not Responsive</option></select></td>
+        <td><select id="s-SupplySix" class="stage-select" onchange="saveStage(this,'GodrejJerseyAV','HaleonAV','SupplySix')"><option value="">&#8212; Select stage</option><option value="demo_done">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="lost">Didn't Convert</option><option value="not_responsive">Not Responsive</option></select></td>
         <td><textarea id="c-SupplySix" class="comment-input" rows="1" placeholder="Add notes..." oninput="saveComment(this,'SupplySix')"></textarea></td>
       </tr>
       
       
-<!-- PLG leads -->
+<tr>
+      <td><strong>Godrej Jersey</strong></td>
+      <td><span class="source-badge src-avoma">Avoma</span></td>
+      <td><select id="s-GodrejJerseyAV" class="stage-select" onchange="saveStage(this,'GodrejJerseyAV')"><option value="">&mdash; Select stage</option><option value="demo_done">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="lost">Didn't Convert</option><option value="not_responsive">Not Responsive</option></select></td>
+      <td><textarea id="c-GodrejJerseyAV" class="comment-input" rows="1" placeholder="Add notes..." oninput="saveComment(this,'GodrejJerseyAV')"></textarea></td>
+    </tr>
+    <tr>
+      <td><strong>Haleon</strong></td>
+      <td><span class="source-badge src-avoma">Avoma</span></td>
+      <td><select id="s-HaleonAV" class="stage-select" onchange="saveStage(this,'HaleonAV')"><option value="">&mdash; Select stage</option><option value="demo_done">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="lost">Didn't Convert</option><option value="not_responsive">Not Responsive</option></select></td>
+      <td><textarea id="c-HaleonAV" class="comment-input" rows="1" placeholder="Add notes..." oninput="saveComment(this,'HaleonAV')"></textarea></td>
+    </tr>
+    <!-- PLG leads -->
       <tr>
         <td><strong>Dairy Day&#8230;</strong></td>
         <td><span class="source-badge src-plg">PLG</span></td>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PM Lead Tracker &#8212; Apr 22 to May 7, 2026</title>
+<title>PM Lead Tracker &middot; May 20, 2026</title>
 <style>
   :root {
     --bg: #0d1117;
@@ -12,122 +12,84 @@
     --border: #30363d;
     --text: #e6edf3;
     --muted: #8b949e;
-    --hot: #ff4d4d;
-    --hot-bg: #2d0f0f;
-    --hot-border: #8b1a1a;
-    --warm: #f5a623;
-    --warm-bg: #2d1e06;
-    --warm-border: #7a4f00;
-    --early: #58a6ff;
-    --early-bg: #0d1f36;
-    --early-border: #1f4b7a;
+    --red: #f85149;
+    --amber: #d29922;
+    --blue: #58a6ff;
     --green: #3fb950;
-    --teal: #39d353;
     --purple: #bc8cff;
+    --yellow-bg: #3d2f00;
+    --yellow-border: #9e6a03;
+    --yellow-text: #e3b341;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; padding: 24px; line-height: 1.5; max-width: 1100px; margin: 0 auto; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', monospace; font-size: 14px; line-height: 1.6; }
+  
+  .header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 20px 32px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+  .header h1 { font-size: 18px; font-weight: 600; letter-spacing: -0.3px; }
+  .meta { color: var(--muted); font-size: 12px; margin-top: 2px; }
+  .refresh-btn { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 12px; }
+  .refresh-btn:hover { border-color: var(--blue); }
 
-  /* HEADER */
-  .header { border-bottom: 1px solid var(--border); padding-bottom: 18px; margin-bottom: 28px; }
-  .header h1 { font-size: 20px; font-weight: 600; color: #f0f6fc; }
-  .header .meta { font-size: 13px; color: var(--muted); margin-top: 4px; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 24px 32px; }
 
-  /* SECTION LABELS */
-  .section { margin-bottom: 36px; }
-  .section-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 5px 12px; border-radius: 4px; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 14px; }
-  .sl-avoma { background: #1a1000; border: 1px solid #7a4f00; color: var(--warm); }
-  .sl-posthog { background: #0a1e14; border: 1px solid #1a5c38; color: var(--teal); }
-  .sl-tracker { background: #1a0a2e; border: 1px solid #6e3fa3; color: var(--purple); }
+  .banner { background: var(--yellow-bg); border: 1px solid var(--yellow-border); border-radius: 8px; padding: 12px 16px; margin-bottom: 16px; color: var(--yellow-text); font-size: 13px; display: flex; align-items: flex-start; gap: 10px; }
+  .banner-icon { flex-shrink: 0; font-size: 15px; }
 
-  /* BRAND CARDS (Section 1) */
-  .brand-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 8px; overflow: hidden; }
-  .brand-card-hot { border-color: var(--hot-border); }
-  .brand-card-warm { border-color: var(--warm-border); }
-  .brand-card-early { border-color: var(--early-border); }
+  .section-title { font-size: 16px; font-weight: 600; margin: 32px 0 16px 0; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
+  .count-badge { background: var(--surface2); border: 1px solid var(--border); color: var(--muted); font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 400; }
 
-  .brand-header { display: flex; align-items: center; gap: 12px; padding: 11px 16px; cursor: pointer; user-select: none; }
-  .brand-header:hover { background: var(--surface2); }
-  .brand-name { font-weight: 600; font-size: 14px; flex: 1; }
-  .tier-badge { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
-  .badge-hot { background: var(--hot-bg); border: 1px solid var(--hot-border); color: var(--hot); }
-  .badge-warm { background: var(--warm-bg); border: 1px solid var(--warm-border); color: var(--warm); }
-  .badge-early { background: var(--early-bg); border: 1px solid var(--early-border); color: var(--early); }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 12px; overflow: hidden; }
+  .card-header { padding: 14px 16px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; user-select: none; }
+  .card-header:hover { background: var(--surface2); }
+  .card-title { display: flex; align-items: center; gap: 10px; font-weight: 500; }
+  .card-body { padding: 16px; border-top: 1px solid var(--border); display: none; }
+  .card-body.open { display: block; }
 
-  .score-bar-wrap { display: flex; align-items: center; gap: 8px; min-width: 130px; }
-  .score-bar { flex: 1; height: 5px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
-  .score-fill-hot { height: 100%; background: var(--hot); border-radius: 3px; }
-  .score-fill-warm { height: 100%; background: var(--warm); border-radius: 3px; }
-  .score-fill-early { height: 100%; background: var(--early); border-radius: 3px; }
-  .score-num { font-size: 11px; color: var(--muted); min-width: 32px; text-align: right; }
-  .chevron { color: var(--muted); font-size: 10px; transition: transform 0.2s; }
+  .badge { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 4px; letter-spacing: 0.5px; }
+  .badge-hot { background: rgba(248,81,73,0.15); color: var(--red); border: 1px solid rgba(248,81,73,0.3); }
+  .badge-warm { background: rgba(210,153,34,0.15); color: var(--amber); border: 1px solid rgba(210,153,34,0.3); }
+  .badge-early { background: rgba(88,166,255,0.15); color: var(--blue); border: 1px solid rgba(88,166,255,0.3); }
+  .badge-prospect { background: rgba(188,140,255,0.15); color: var(--purple); border: 1px solid rgba(188,140,255,0.3); }
 
-  .brand-body { padding: 12px 16px; display: none; border-top: 1px solid var(--border); }
-  .brand-body.open { display: block; }
+  .chip { display: inline-block; background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 2px 8px; font-size: 11px; color: var(--muted); margin: 2px; font-family: monospace; }
+  .chip-signal { color: var(--green); border-color: rgba(63,185,80,0.3); background: rgba(63,185,80,0.08); }
 
-  .meta-row { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 10px; }
-  .meta-item { font-size: 12px; color: var(--muted); }
-  .meta-item span { color: var(--text); }
+  .action-box { background: var(--surface2); border-left: 3px solid var(--blue); border-radius: 0 6px 6px 0; padding: 10px 14px; margin-top: 12px; font-size: 13px; }
+  .action-label { color: var(--blue); font-size: 11px; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 4px; }
 
-  .evidence-list { list-style: none; }
-  .evidence-item { padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
-  .evidence-item:last-child { border-bottom: none; }
-  .kw { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 3px; margin-right: 6px; text-transform: uppercase; letter-spacing: 0.4px; }
-  .kw-high { background: #0d2b0d; border: 1px solid #1a5c1a; color: #3fb950; }
-  .kw-med  { background: #1e1a00; border: 1px solid #5c4f00; color: #d4af37; }
-  .kw-exp  { background: #0d1f36; border: 1px solid #1f4b7a; color: #58a6ff; }
-  .quote { color: var(--text); font-style: italic; }
-  .who { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .empty-state { text-align: center; padding: 40px 20px; color: var(--muted); }
+  .empty-state .icon { font-size: 32px; margin-bottom: 12px; }
 
-  .action-box { background: var(--surface2); border: 1px solid var(--border); border-radius: 5px; padding: 9px 13px; margin-top: 10px; font-size: 13px; }
-  .action-box .al { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
+  .posthog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-bottom: 24px; }
+  .posthog-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px; }
+  .posthog-card .user-id { font-family: monospace; font-size: 11px; color: var(--muted); margin-bottom: 6px; }
+  .posthog-card .clicks { font-size: 22px; font-weight: 700; color: var(--blue); }
+  .posthog-card .clicks-label { font-size: 11px; color: var(--muted); }
+  .posthog-card .last-click { font-size: 11px; color: var(--green); margin-top: 6px; }
 
-  /* POSTHOG CARDS (Section 2) */
-  .phl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 8px; }
-  .phl-item { background: #0d1e1a; border: 1px solid #1a4a3a; border-radius: 6px; padding: 10px 14px; }
-  .phl-item.dimmed { opacity: 0.55; }
-  .phl-brand { font-weight: 600; color: var(--teal); font-size: 14px; }
-  .phl-meta { font-size: 11px; color: var(--muted); margin-top: 3px; }
-  .phl-note { font-size: 11px; color: #5a9a6a; margin-top: 4px; }
-  .already-pm-badge { font-size: 10px; background: #1a0a2e; border: 1px solid #6e3fa3; color: var(--purple); padding: 1px 6px; border-radius: 3px; margin-left: 6px; vertical-align: middle; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; padding: 10px 12px; background: var(--surface2); color: var(--muted); font-weight: 500; font-size: 11px; letter-spacing: 0.5px; border-bottom: 1px solid var(--border); }
+  td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--surface2); }
 
-  /* TRACKER TABLE (Section 3) */
-  .tracker-table { width: 100%; border-collapse: collapse; }
-  .tracker-table thead tr { background: var(--surface2); }
-  .tracker-table th { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.6px; color: var(--muted); padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); }
-  .tracker-table tbody tr { border-bottom: 1px solid var(--border); transition: background 0.1s; }
-  .tracker-table tbody tr:hover { background: var(--surface2); }
-  .tracker-table td { padding: 9px 14px; font-size: 13px; vertical-align: middle; }
-
-  .source-badge { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.4px; white-space: nowrap; }
-  .src-avoma   { background: #2d1e06; border: 1px solid #7a4f00; color: var(--warm); }
-  .src-posthog { background: #0a1e14; border: 1px solid #1a4a3a; color: var(--teal); }
-
-  .stage-select {
-    background: var(--surface2);
-    border: 1px solid var(--border);
+  select.stage-select {
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 5px;
     color: var(--text);
     font-size: 12px;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
+    padding: 5px 8px;
+    width: 100%;
     outline: none;
-    min-width: 148px;
-    appearance: none;
-    -webkit-appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%238b949e'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 10px center;
-    padding-right: 28px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: border-color 0.15s;
   }
-  .stage-select:focus { border-color: #58a6ff; }
-  .stage-select.s-demo-done      { border-color: #1f4b7a; color: #58a6ff; }
-  .stage-select.s-trial          { border-color: #6e3fa3; color: var(--purple); }
-  .stage-select.s-converted      { border-color: #1a5c1a; color: var(--green); }
-  .stage-select.s-didnt-convert  { border-color: #8b1a1a; color: var(--hot); }
-  .stage-select.s-not-responsive { border-color: #444c56; color: var(--muted); }
+  select.stage-select:hover { border-color: var(--border); background: var(--surface2); }
+  select.stage-select:focus { border-color: #58a6ff; background: var(--surface2); }
 
-  .comment-input {
+  textarea.comment-input {
     background: transparent;
     border: 1px solid transparent;
     border-radius: 5px;
@@ -140,8 +102,8 @@
     resize: none;
     transition: border-color 0.15s;
   }
-  .comment-input:hover  { border-color: var(--border); background: var(--surface2); }
-  .comment-input:focus  { border-color: #58a6ff; background: var(--surface2); }
+  .comment-input:hover { border-color: var(--border); background: var(--surface2); }
+  .comment-input:focus { border-color: #58a6ff; background: var(--surface2); }
   .comment-input::placeholder { color: var(--muted); opacity: 0.6; }
 
   .save-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); opacity: 0; transition: opacity 0.3s; display: inline-block; margin-left: 4px; vertical-align: middle; }
@@ -151,540 +113,295 @@
 <body>
 
 <div class="header">
-  <h1>&#127919; PM Lead Tracker</h1>
-  <div class="meta">Apr 22 &#8211; May 7, 2026 &nbsp;&#183;&nbsp; Sources: Avoma transcripts + PostHog cross-sell events</div>
+  <div>
+    <h1>&#127919; PM Lead Tracker</h1>
+    <div class="meta">May 13 &ndash; May 20, 2026 &nbsp;&#183;&nbsp; Sources: Avoma + Periskope + PostHog</div>
+  </div>
+  <button class="refresh-btn" onclick="location.reload()">&#8635; Refresh</button>
 </div>
 
-<!-- &#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552; -->
-<!-- SECTION 1: AVOMA + PERISCOPE LEADS          -->
-<!-- &#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552; -->
-<div class="section">
-  <div class="section-label sl-avoma">&#128202; Avoma + Periscope Leads &#183; 9 brands</div>
+<div class="container">
 
-  <!-- &#9472;&#9472; HOT &#9472;&#9472; -->
-  <div class="brand-card brand-card-hot">
-    <div class="brand-header" onclick="toggleCard(this)">
-      <div class="brand-name">XYXX</div>
-      <div class="score-bar-wrap">
-        <div class="score-bar"><div class="score-fill-hot" style="width:100%"></div></div>
-        <div class="score-num">30+ pts</div>
+  <!-- Warning Banners -->
+  <div class="banner">
+    <span class="banner-icon">&#9888;</span>
+    <div><strong>HubSpot PM pipeline filter not applied</strong> &mdash; HubSpot MCP is not connected in this session. Brands already on the Performance Marketing pipeline could not be automatically excluded. The exclusion list was approximated using Periskope chat names (PM-prefixed chats).</div>
+  </div>
+
+  <div class="banner">
+    <span class="banner-icon">&#9888;</span>
+    <div><strong>Avoma transcripts unavailable for this window</strong> &mdash; All 768 meetings fetched from Avoma for May 13&ndash;20 have <code>transcript_ready: false</code>. Meetings from the last 7 days are either too recent, not yet processed, or the recording bot was not admitted. Periskope WhatsApp signals were used as the primary signal source instead.</div>
+  </div>
+
+  <div class="banner">
+    <span class="banner-icon">&#9888;</span>
+    <div><strong>PostHog self-qualified leads are anonymous</strong> &mdash; 10 clicks on the PM cross-sell modal were recorded, but the <code>$company_name</code>, <code>$email</code>, and all other identity properties are null for these users. Company names cannot be determined from PostHog alone.</div>
+  </div>
+
+  <!-- SECTION 1: Avoma + Periskope Leads -->
+  <div class="section-title">
+    &#128203; Avoma + Periskope Leads
+    <span class="count-badge">1 prospect flagged</span>
+  </div>
+
+  <!-- SupplySix Prospect Card -->
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="card-title">
+        <span class="badge badge-prospect">PROSPECT</span>
+        <span>SupplySix</span>
+        <span style="color:var(--muted);font-size:12px;">Active PM Evaluation</span>
       </div>
-      <div class="tier-badge badge-hot">HOT</div>
-      <div class="chevron">&#9654;</div>
+      <span style="color:var(--muted);font-size:12px;">&#9660;</span>
     </div>
-    <div class="brand-body">
-      <div class="meta-row">
-        <div class="meta-item">&#128197; <span>May 4 &amp; Apr 28, 2026</span></div>
-        <div class="meta-item">&#127919; <span>2 PM-intent meetings</span></div>
+    <div class="card-body">
+      <div style="margin-bottom:10px;">
+        <span class="chip">Source: Avoma meeting titles</span>
+        <span class="chip">No WhatsApp chat found</span>
+        <span class="chip">Transcripts not ready</span>
       </div>
-      <ul class="evidence-list">
-        <li class="evidence-item">
-          <span class="kw kw-high">HIGH &#183; ROAS</span>
-          <span class="quote">"Our ROAS on Blinkit is terrible &#8212; we're spending but not converting. What's the benchmark?"</span>
-          <div class="whn">Neha Kaushik / XYXX &#8212; May 4</div>
-        </li>
-        <li class="evidence-item">
-          <span class="kw kw-high">HIGH &#183; Campaign Budget</span>
-          <span class="quote">"We need to figure out what our optimal campaign budget should be &#8212; we've been flying blind."</span>
-          <div class="who">XYXX &#8212; May 4</div>
-        </li>
-        <li class="evidence-item">
-          <span class="kw kw-high">HIGH &#183; Sponsored Ads</span>
-          <span class="quote">"Why are our sponsored listings not showing up in top positions? Competitors seem to always be above us."</span>
-          <div class="who">XYXX &#8212; Apr 28</div>
-        </li>
-        <li class="evidence-item">
-          <span class="kw kw-med">MED &#183; SOV Gap</span>
-          <span class="quote">"Our ad SOV is way lower than our organic share &#8212; that's a problem we need to fix."</span>
-          <div class="who">XYXX &#8212; multiple meetings</div>
-        </li>
-      </ul>
+      <p style="color:var(--muted);font-size:13px;margin-bottom:10px;">
+        Multiple Avoma meetings titled <strong>"PM Dashboard Walkthrough"</strong> and related PM-topic sessions were found for SupplySix in the last 7 days. No Periskope WhatsApp chat exists for this brand yet, suggesting they may be in early evaluation. Transcripts were not available for scoring.
+      </p>
+      <div style="margin-bottom:10px;">
+        <span class="chip chip-signal">PM Dashboard Walkthrough (meeting title)</span>
+        <span class="chip chip-signal">Active demo-stage signals</span>
+      </div>
       <div class="action-box">
-        <div class="al">&#128161; Recommended Action</div>
-        Book dedicated PM demo call. Client has strong product-market fit awareness and is budget-aware. Lead with ROAS benchmarks for innerwear on Blinkit/Zepto. Assign PM CSM immediately.
+        <div class="action-label">RECOMMENDED ACTION</div>
+        CSM to follow up post-demo &mdash; confirm interest and move to Trial stage. Create a Periskope chat for ongoing communication.
       </div>
     </div>
   </div>
 
-  <!-- &#9472;&#9472; WARM &#9472;&#9472; -->
-  <div class="brand-card brand-card-warm">
-    <div class="brand-header" onclick="toggleCard(this)">
-      <div class="brand-name">BornGood</div>
-      <div class="score-bar-wrap">
-        <div class="score-bar"><div class="score-fill-warm" style="width:83%"></div></div>
-        <div class="score-num">20 pts</div>
-      </div>
-      <div class="tier-badge badge-warm">WARM</div>
-      <div class="chevron">&#9654;</div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:20px;margin-bottom:12px;">
+    <div style="color:var(--muted);font-size:13px;margin-bottom:12px;">
+      <strong style="color:var(--text);">Brands excluded (already on PM pipeline):</strong> The Deconstruct, Minimalist, Boldfit, Wingreens Raw Pressery, Safe Harvest, GetAWay, Philips, Eat Anytime, Reckitt, Mesmerize, Boult, Ocean Beverages
     </div>
-    <div class="brand-body">
-      <div class="meta-row"><div class="meta-item">&#128197; <span>Apr 29, 2026</span></div></div>
-      <ul class="evidence-list">
-        <li class="evidence-item">
-          <span class="kw kw-high">HIGH &#183; Campaign Budget</span>
-          <span class="quote">"Split of campaign budget between in-app (Swiggy/Blinkit) and off-app (Meta/Google) channels was advised."</span>
-          <div class="who">GC CSM &amp; Client &#8212; Apr 29 notes</div>
-        </li>
-        <li class="evidence-item">
-          <span class="kw kw-med">MED &#183; Ads SOV</span>
-          <span class="quote">"Brand loyalty ratio for detergent: category share 44% / ads SOV 29.3% = 1.5 &#8212; bidding on competitor keyword 'Harpik' can drive unbranded search conversions."</span>
-          <div class="who">Apr 29 meeting notes</div>
-        </li>
-        <li class="evidence-item">
-          <span class="kw kw-high">HIGH &#183; Keyword Ads</span>
-          <span class="quote">Client action: "Compile keyword targeting list using GobbleCube &#8212; competitor keywords and generic keywords with higher category impression share."</span>
-          <div class="who">Arqum / BornGood &#8212; assigned action item</div>
-        </li>
-      </ul>
-      <div class="action-box">
-        <div class="al">&#128161; Recommended Action</div>
-        Client is already doing ads (SOV 29.3%) and actively working on keyword targeting. Pitch PM as efficiency/scale play. Follow up after Arqum completes the keyword list exercise.
-      </div>
+    <div style="color:var(--muted);font-size:13px;">
+      <strong style="color:var(--text);">Content clients scanned (no PM signals):</strong> Godrej CP, Godrej Jersey, Emami, Tata Consumer, The Man Company, Pepsico, 24Mantra &mdash; all scored 0 on Avoma + Periskope PM keyword checks.
     </div>
   </div>
 
-  <div class="brand-card brand-card-warm">
-    <div class="brand-header" onclick="toggleCard(this)">
-      <div class="brand-name">Dev Milk Foods (Frubon)</div>
-      <div class="score-bar-wrap">
-        <div class="score-bar"><div class="score-fill-warm" style="width:83%"></div></div>
-        <div class="score-num">20 pts</div>
-      </div>
-      <div class="tier-badge badge-warm">WARM</div>
-      <div class="chevron">&#9654;</div>
+  <!-- Master Tracker Table: Section 1 -->
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:32px;">
+    <div style="padding:12px 16px;border-bottom:1px solid var(--border);font-size:13px;font-weight:600;color:var(--muted);letter-spacing:0.5px;">TRACKER &mdash; AVOMA + PERISKOPE LEADS</div>
+    <table>
+      <thead>
+        <tr>
+          <th>BRAND</th>
+          <th>SOURCE</th>
+          <th>SIGNAL</th>
+          <th style="width:170px;">STAGE</th>
+          <th>NOTES</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>SupplySix</strong></td>
+          <td><span class="chip">Avoma</span></td>
+          <td><span class="chip chip-signal">PM Dashboard Walkthrough</span></td>
+          <td>
+            <select class="stage-select" onchange="saveStage('s1_supplysix_stage', this.value)">
+              <option value="">&#8212; Select stage</option>
+              <option value="demo">Demo Done</option>
+              <option value="trial">Trial</option>
+              <option value="converted">Converted</option>
+              <option value="didnt_convert">Didn't Convert</option>
+              <option value="not_responsive">Not Responsive</option>
+            </select>
+          </td>
+          <td>
+            <textarea class="comment-input" rows="2" placeholder="Add notes..." onchange="saveNote('s1_supplysix_notes', this.value)" oninput="flashSave(this)"></textarea>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION 2: PostHog Self-Qualified Leads -->
+  <div class="section-title">
+    &#129504; PostHog Leads &middot; Self-Qualified via PM Cross-Sell Modal
+    <span class="count-badge">10 clicks &middot; 8 anonymous users</span>
+  </div>
+
+  <div class="banner" style="margin-bottom:20px;">
+    <span class="banner-icon">&#128269;</span>
+    <div style="color:var(--yellow-text);">These users clicked <strong>"Get In Touch"</strong> on the Performance Marketing cross-sell modal. Company identities are unknown &mdash; all PostHog identity properties are null. To identify these users, check your CRM or product DB using the distinct IDs below.</div>
+  </div>
+
+  <div class="posthog-grid">
+    <div class="posthog-card">
+      <div class="user-id">7fb587f2...&nbsp;<span class="save-dot" id="dot_ph1"></span></div>
+      <div class="clicks">1</div>
+      <div class="clicks-label">click(s)</div>
+      <div class="last-click">&#9679; Last: May 18, 2026</div>
     </div>
-    <div class="brand-body">
-      <div class="meta-row"><div class="meta-item">&#128197; <span>May 7, 2026 &#183; MBR</span></div></div>
-      <ul class="evidence-list">
-        <li class="evidence-item">
-          <span class="kw kw-med">MED &#183; Visibility/Ad Context</span>
-          <span class="quote">Client discussed competitive ad visibility gaps and expressed need to understand why category leaders maintain visibility at lower apparent spend.</span>
-          <div class="who">Dev Milk Foods &#8212; May 7 MBR</div>
-        </li>
-        <li class="evidence-item">
-          <span class="kw kw-med">MED &#183; SOV Gap</span>
-          <span class="quote">SOV dip identified across multiple categories &#8212; client actively asking about levers to recover visibility including paid options.</span>
-          <div class="who">May 7 MBR discussion</div>
-        </li>
-      </ul>
-      <div class="action-box">
-        <div class="al">&#128161; Recommended Action</div>
-        Introduce PM as the visibility recovery lever in next touchpoint. Use category SOV data to show how much paid share competitors are running vs organic.
-      </div>
+    <div class="posthog-card">
+      <div class="user-id">974d68ae...&nbsp;<span class="save-dot" id="dot_ph2"></span></div>
+      <div class="clicks">1</div>
+      <div class="clicks-label">click(s)</div>
+      <div class="last-click">&#9679; Last: May 18, 2026</div>
+    </div>
+    <div class="posthog-card">
+      <div class="user-id">b267ae81...&nbsp;<span class="save-dot" id="dot_ph3"></span></div>
+      <div class="clicks">1</div>
+      <div class="clicks-label">click(s)</div>
+      <div class="last-click">&#9679; Last: May 18, 2026</div>
+    </div>
+    <div class="posthog-card">
+      <div class="user-id">e70a23aa...&nbsp;<span class="save-dot" id="dot_ph4"></span></div>
+      <div class="clicks">2</div>
+      <div class="clicks-label">click(s)</div>
+      <div class="last-click">&#9679; Last: May 16, 2026</div>
+    </div>
+    <div class="posthog-card">
+      <div class="user-id">b73f61ea...&nbsp;<span class="save-dot" id="dot_ph5"></span></div>
+      <div class="clicks">1</div>
+      <div class="clicks-label">click(s)</div>
+      <div class="last-click">&#9679; Last: May 15, 2026</div>
+    </div>
+    <div class="posthog-card">
+      <div class="user-id">1be111c0...&nbsp;<span class="save-dot" id="dot_ph6"></span></div>
+      <div class="clicks">2</div>
+      <div class="clicks-label">click(s)</div>
+      <div class="last-click">&#9679; Last: May 15, 2026</div>
+    </div>
+    <div class="posthog-card">
+      <div class="user-id">bfa2bc5f...&nbsp;<span class="save-dot" id="dot_ph7"></span></div>
+      <div class="clicks">1</div>
+      <div class="clicks-label">click(s)</div>
+      <div class="last-click">&#9679; Last: May 14, 2026</div>
+    </div>
+    <div class="posthog-card">
+      <div class="user-id">c11760eb...&nbsp;<span class="save-dot" id="dot_ph8"></span></div>
+      <div class="clicks">1</div>
+      <div class="clicks-label">click(s)</div>
+      <div class="last-click">&#9679; Last: May 14, 2026</div>
     </div>
   </div>
 
-  <div class="brand-card brand-card-warm">
-    <div class="brand-header" onclick="toggleCard(this)">
-      <div class="brand-name">The Indus Valley</div>
-      <div class="score-bar-wrap">
-        <div class="score-bar"><div class="score-fill-warm" style="width:62%"></div></div>
-        <div class="score-num">15 pts</div>
-      </div>
-      <div class="tier-badge badge-warm">WARM</div>
-      <div class="chevron">&#9654;</div>
-    </div>
-    <div class="brand-body">
-      <div class="meta-row"><div class="meta-item">&#128197; <span>Apr 22, 2026</span></div></div>
-      <ul class="evidence-list">
-        <li class="evidence-item">
-          <span class="kw kw-med">MED &#183; SOV Gap</span>
-          <span class="quote">"We have better organic rank but their ads keep pushing us down in total visibility."</span>
-          <div class="who">The Indus Valley &#8212; Apr 22</div>
-        </li>
-        <li class="evidence-item">
-          <span class="kw kw-med">MED &#183; Competitor Advertising</span>
-          <span class="quote">Client noted competitors running aggressive ad campaigns, questioning whether they need to match spend to maintain position.</span>
-          <div class="who">Apr 22 discussion</div>
-        </li>
-      </ul>
-      <div class="action-box">
-        <div class="al">&#128161; Recommended Action</div>
-        Strong PM pitch candidate &#8212; client has identified the competitive advertising gap themselves. Frame PM as "meeting the market where it is."
-      </div>
-    </div>
+  <!-- PostHog Master Tracker Table -->
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:32px;">
+    <div style="padding:12px 16px;border-bottom:1px solid var(--border);font-size:13px;font-weight:600;color:var(--muted);letter-spacing:0.5px;">TRACKER &mdash; POSTHOG SELF-QUALIFIED LEADS</div>
+    <table>
+      <thead>
+        <tr>
+          <th>DISTINCT ID</th>
+          <th>CLICKS</th>
+          <th>LAST CLICK</th>
+          <th style="width:170px;">STAGE</th>
+          <th>NOTES</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="font-family:monospace;font-size:12px;">7fb587f2...</td>
+          <td>1</td>
+          <td>May 18, 2026</td>
+          <td><select class="stage-select" onchange="saveStage('ph1_stage',this.value)"><option value="">&#8212; Select stage</option><option value="demo">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="didnt_convert">Didn't Convert</option><option value="not_responsive">Not Responsive</option></select></td>
+          <td><textarea class="comment-input" rows="2" placeholder="Add notes..." onchange="saveNote('ph1_notes',this.value)"></textarea></td>
+        </tr>
+        <tr>
+          <td style="font-family:monospace;font-size:12px;">974d68ae...</td>
+          <td>1</td>
+          <td>May 18, 2026</td>
+          <td><select class="stage-select" onchange="saveStage('ph2_stage',this.value)"><option value="">&#8212; Select stage</option><option value="demo">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="didnt_convert">Didn't Convert</option><option value="not_responsive">Not Responsive</option></select></td>
+          <td><textarea class="comment-input" rows="2" placeholder="Add notes..." onchange="saveNote('ph2_notes',this.value)"></textarea></td>
+        </tr>
+        <tr>
+          <td style="font-family:monospace;font-size:12px;">b267ae81...</td>
+          <td>1</td>
+          <td>May 18, 2026</td>
+          <td><select class="stage-select" onchange="saveStage('ph3_stage',this.value)"><option value="">&#8212; Select stage</option><option value="demo">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="didnt_convert">Didn't Convert</option><option value="not_responsive">Not Responsive</option></select></td>
+          <td><textarea class="comment-input" rows="2" placeholder="Add notes..." onchange="saveNote('ph3_notes',this.value)"></textarea></td>
+        </tr>
+        <tr>
+          <td style="font-family:monospace;font-size:12px;">e70a23aa...</td>
+          <td>2</td>
+          <td>May 16, 2026</td>
+          <td><select class="stage-select" onchange="saveStage('ph4_stage',this.value)"><option value="">&#8212; Select stage</option><option value="demo">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="didnt_convert">Didn't Convert</option><option value="not_responsive">Not Responsive</option></select></td>
+          <td><textarea class="comment-input" rows="2" placeholder="Add notes..." onchange="saveNote('ph4_notes',this.value)"></textarea></td>
+        </tr>
+        <tr>
+          <td style="font-family:monospace;font-size:12px;">b73f61ea...</td>
+          <td>1</td>
+          <td>May 15, 2026</td>
+          <td><select class="stage-select" onchange="saveStage('ph5_stage',this.value)"><option value="">&#8212; Select stage</option><option value="demo">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="didnt_convert">Didn't Convert</option><option value="not_responsive">Not Responsive</option></select></td>
+          <td><textarea class="comment-input" rows="2" placeholder="Add notes..." onchange="saveNote('ph5_notes',this.value)"></textarea></td>
+        </tr>
+        <tr>
+          <td style="font-family:monospace;font-size:12px;">1be111c0...</td>
+          <td>2</td>
+          <td>May 15, 2026</td>
+          <td><select class="stage-select" onchange="saveStage('ph6_stage',this.value)"><option value="">&#8212; Select stage</option><option value="demo">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="didnt_convert">Didn't Convert</option><option value="not_responsive">Not Responsive</option></select></td>
+          <td><textarea class="comment-input" rows="2" placeholder="Add notes..." onchange="saveNote('ph6_notes',this.value)"></textarea></td>
+        </tr>
+        <tr>
+          <td style="font-family:monospace;font-size:12px;">bfa2bc5f...</td>
+          <td>1</td>
+          <td>May 14, 2026</td>
+          <td><select class="stage-select" onchange="saveStage('ph7_stage',this.value)"><option value="">&#8212; Select stage</option><option value="demo">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="didnt_convert">Didn't Convert</option><option value="not_responsive">Not Responsive</option></select></td>
+          <td><textarea class="comment-input" rows="2" placeholder="Add notes..." onchange="saveNote('ph7_notes',this.value)"></textarea></td>
+        </tr>
+        <tr>
+          <td style="font-family:monospace;font-size:12px;">c11760eb...</td>
+          <td>1</td>
+          <td>May 14, 2026</td>
+          <td><select class="stage-select" onchange="saveStage('ph8_stage',this.value)"><option value="">&#8212; Select stage</option><option value="demo">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="didnt_convert">Didn't Convert</option><option value="not_responsive">Not Responsive</option></select></td>
+          <td><textarea class="comment-input" rows="2" placeholder="Add notes..." onchange="saveNote('ph8_notes',this.value)"></textarea></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
-  <div class="brand-card brand-card-warm">
-    <div class="brand-header" onclick="toggleCard(this)">
-      <div class="brand-name">Sid's Farm</div>
-      <div class="score-bar-wrap">
-        <div class="score-bar"><div class="score-fill-warm" style="width:62%"></div></div>
-        <div class="score-num">15 pts</div>
-      </div>
-      <div class="tier-badge badge-warm">WARM</div>
-      <div class="chevron">&#9654;</div>
-    </div>
-    <div class="brand-body">
-      <div class="meta-row"><div class="meta-item">&#128197; <span>May 6, 2026</span></div></div>
-      <ul class="evidence-list">
-        <li class="evidence-item">
-          <span class="kw kw-med">MED &#183; Visibility</span>
-          <span class="quote">Client discussed falling keyword visibility on Blinkit and asked whether the drop was organic or ad-driven by competitors.</span>
-          <div class="who">Sid's Farm &#8212; May 6</div>
-        </li>
-        <li class="evidence-item">
-          <span class="kw kw-med">MED &#183; SOV</span>
-          <span class="quote">SOV delta between Sid's Farm and category leaders discussed; client concerned about competitors' paid share growing.</span>
-          <div class="who">May 6 discussion</div>
-        </li>
-      </ul>
-      <div class="action-box">
-        <div class="al">&#128161; Recommended Action</div>
-        Use competitive ad visibility data to show where they're losing ground to paid competitors. Propose PM trial with keyword-level bidding to defend current organic ranks.
-      </div>
-    </div>
+  <div style="text-align:center;color:var(--muted);font-size:12px;padding:20px 0 40px;">
+    Generated May 20, 2026 &nbsp;&#183;&nbsp; Next run will automatically refresh all data sources
   </div>
 
-  <div class="brand-card brand-card-warm">
-    <div class="brand-header" onclick="toggleCard(this)">
-      <div class="brand-name">Dugar Overseas (DOPL)</div>
-      <div class="score-bar-wrap">
-        <div class="score-bar"><div class="score-fill-warm" style="width:54%"></div></div>
-        <div class="score-num">13 pts</div>
-      </div>
-      <div class="tier-badge badge-warm">WARM</div>
-      <div class="chevron">&#9654;</div>
-    </div>
-    <div class="brand-body">
-      <div class="meta-row"><div class="meta-item">&#128197; <span>Apr 30, 2026</span></div></div>
-      <ul class="evidence-list">
-        <li class="evidence-item">
-          <span class="kw kw-med">MED &#183; Competitor Advertising</span>
-          <span class="quote">Client noted competitor brands running heavy keyword ads in core category, asking if GobbleCube could help understand the pattern.</span>
-          <div class="who">Dugar Overseas &#8212; Apr 30</div>
-        </li>
-        <li class="evidence-item">
-          <span class="kw kw-exp">EARLY &#183; Visibility</span>
-          <span class="quote">Client asked about tools to "boost our visibility" on Blinkit without purely relying on organic rank improvements.</span>
-          <div class="who">Apr 30 discussion</div>
-        </li>
-      </ul>
-      <div class="action-box">
-        <div class="al">&#128161; Recommended Action</div>
-        Follow up with competitive ad intelligence report. Client is curious but hasn't committed &#8212; show ROI potential first.
-      </div>
-    </div>
-  </div>
-
-  <div class="brand-card brand-card-warm">
-    <div class="brand-header" onclick="toggleCard(this)">
-      <div class="brand-name">Masterchow</div>
-      <div class="score-bar-wrap">
-        <div class="score-bar"><div class="score-fill-warm" style="width:41%"></div></div>
-        <div class="score-num">10 pts</div>
-      </div>
-      <div class="tier-badge badge-warm">WARM</div>
-      <div class="chevron">&#9654;</div>
-    </div>
-    <div class="brand-body">
-      <div class="meta-row"><div class="meta-item">&#128197; <span>Apr 27, 2026</span></div></div>
-      <ul class="evidence-list">
-        <li class="evidence-item">
-          <span class="kw kw-high">HIGH &#183; PM Intent</span>
-          <span class="quote">"Customer highlighted a long-standing relationship with GobbleCube and intent to expand to new platforms and performance marketing."</span>
-          <div class="who">Positive Moment &#8212; Masterchow, Apr 27 (Yash Lata / Akshun / Nikhil)</div>
-        </li>
-      </ul>
-      <div class="action-box">
-        <div class="al">&#128161; Recommended Action</div>
-        Client has explicitly stated PM expansion intent. Book PM demo after current DS work (category mapping fix). Strong relationship &#8212; warm intro to PM CSM is the right next step.
-      </div>
-    </div>
-  </div>
-
-  <!-- &#9472;&#9472; EARLY &#9472;&#9472; -->
-  <div class="brand-card brand-card-early">
-    <div class="brand-header" onclick="toggleCard(this)">
-      <div class="brand-name">Bambino Pasta</div>
-      <div class="score-bar-wrap">
-        <div class="score-bar"><div class="score-fill-early" style="width:25%"></div></div>
-        <div class="score-num">5 pts</div>
-      </div>
-      <div class="tier-badge badge-early">EARLY</div>
-      <div class="chevron">&#9654;</div>
-    </div>
-    <div class="brand-body">
-      <div class="meta-row"><div class="meta-item">&#128197; <span>May 5, 2026</span></div></div>
-      <ul class="evidence-list">
-        <li class="evidence-item">
-          <span class="kw kw-med">MED &#183; Visibility</span>
-          <span class="quote">Incidental discussion about visibility improvement &#8212; client engaged with concept but did not explicitly request PM features.</span>
-          <div class="who">May 5 meeting</div>
-        </li>
-      </ul>
-      <div class="action-box">
-        <div class="al">&#128161; Recommended Action</div>
-        Include in educational nurture flow. Share a case study on how similar pasta/food brands used PM to hold shelf position during peak seasons.
-      </div>
-    </div>
-  </div>
-
-  <div class="brand-card brand-card-early">
-    <div class="brand-header" onclick="toggleCard(this)">
-      <div class="brand-name">Dairy Day</div>
-      <div class="score-bar-wrap">
-        <div class="score-bar"><div class="score-fill-early" style="width:25%"></div></div>
-        <div class="score-num">5 pts</div>
-      </div>
-      <div class="tier-badge badge-early">EARLY</div>
-      <div class="chevron">&#9654;</div>
-    </div>
-    <div class="brand-body">
-      <div class="meta-row"><div class="meta-item">&#128197; <span>Apr 30, 2026 &#183; Onboarding</span></div></div>
-      <ul class="evidence-list">
-        <li class="evidence-item">
-          <span class="kw kw-exp">EARLY &#183; SOV Concept</span>
-          <span class="quote">New brand employee (2nd week) doing platform onboarding &#8212; engaged with SOV and ad visibility concepts, asking "how do you calculate ad visibility?" and "34% overall ad visibility is not great."</span>
-          <div class="who">Riddhika K &#8212; Apr 30 onboarding call</div>
-        </li>
-      </ul>
-      <div class="action-box">
-        <div class="al">&#128161; Recommended Action</div>
-        New champion learning the platform &#8212; good time to introduce PM concepts gently. Schedule short PM capabilities session within 2&#8211;3 weeks once she's onboarded to DS.
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<!-- &#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552; -->
-<!-- SECTION 2: POSTHOG LEADS                   -->
-<!-- &#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552; -->
-<div class="section">
-  <div class="section-label sl-posthog">&#128717;&#65039; PostHog Leads &#183; Self-Qualified via PM Cross-Sell Modal &#183; 7 active leads</div>
-  <div style="font-size:12px;color:var(--muted);margin-bottom:12px;">
-    Brands that clicked <strong style="color:var(--teal)">"Get In Touch"</strong> on the PM cross-sell modal inside GobbleCube &#8212; all from the <em>Category RCA</em> page. Source: PostHog &#183; Apr 10 &#8211; Apr 27, 2026.
-  </div>
-  <div class="phl-grid">
-    <div class="phl-item">
-      <div class="phl-brand">Wildstone</div>
-      <div class="phl-meta">&#128197; Apr 27 &#183; Blinkit &#183; Category RCA</div>
-      <div class="phl-note">Most recent lead &#8212; follow up immediately.</div>
-    </div>
-    <div class="phl-item">
-      <div class="phl-brand">ITC Biscuits</div>
-      <div class="phl-meta">&#128197; Apr 26 &#183; Zepto &#183; Category RCA</div>
-      <div class="phl-note">Enterprise brand &#8212; self-initiated inquiry. Requires enterprise PM outreach track.</div>
-    </div>
-    <div class="phl-item">
-      <div class="phl-brand">ITC Pranah</div>
-      <div class="phl-meta">&#128197; Apr 22 &#183; Blinkit &#183; Category RCA</div>
-      <div class="phl-note">Second ITC entity &#8212; coordinate outreach across both ITC accounts.</div>
-    </div>
-    <div class="phl-item">
-      <div class="phl-brand">Stroom</div>
-      <div class="phl-meta">&#128197; Apr 18 &#183; Zepto &#183; Category RCA</div>
-      <div class="phl-note">Clicked mid-April &#8212; may not have been followed up yet. Check CRM.</div>
-    </div>
-    <div class="phl-item">
-      <div class="phl-brand">Skininspired</div>
-      <div class="phl-meta">&#128197; Apr 14 &#183; Blinkit &#183; Category RCA</div>
-      <div class="phl-note">No Avoma signal &#8212; PM interest confirmed via product action.</div>
-    </div>
-    <div class="phl-item">
-      <div class="phl-brand">Lal Sweets</div>
-      <div class="phl-meta">&#128197; Apr 11 &#183; Blinkit &#183; Category RCA</div>
-      <div class="phl-note">First-wave lead &#8212; confirm if outreach was initiated and outcome.</div>
-    </div>
-    <div class="phl-item dimmed">
-      <div class="phl-brand">Selectaisle (Cowsicaa) <span class="already-pm-badge">Already PM</span></div>
-      <div class="phl-meta">&#128197; Apr 11 &#183; Instamart &#183; Category RCA</div>
-      <div class="phl-note">Active PM customer &#8212; modal click reflects ongoing engagement, not a new lead.</div>
-    </div>
-    <div class="phl-item">
-      <div class="phl-brand">Wellcore</div>
-      <div class="phl-meta">&#128197; Apr 10 &#183; Blinkit &#183; Category RCA</div>
-      <div class="phl-note">Earliest lead &#8212; check if outreach was completed or dropped.</div>
-    </div>
-  </div>
-  <div style="margin-top:10px;padding:9px 12px;background:#0a1e14;border:1px solid #1a4a3a;border-radius:6px;font-size:11px;color:#5a9a6a;">
-    &#9888;&#65039; All 8 leads came from the Category RCA page. No new PostHog leads in the last 10+ days &#8212; check if the cross-sell modal is still surfacing correctly.
-  </div>
-</div>
-
-<!-- &#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552; -->
-<!-- SECTION 3: MASTER TRACKER                  -->
-<!-- &#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552; -->
-<div class="section">
-  <div class="section-label sl-tracker">&#128203; Master Tracker &#183; All Leads <span id="save-indicator" class="save-dot"></span></div>
-  <table class="tracker-table">
-    <thead>
-      <tr>
-        <th style="width:30%">Brand</th>
-        <th style="width:12%">Source</th>
-        <th style="width:22%">Stage</th>
-        <th>Notes / Comments</th>
-      </tr>
-    </thead>
-    <tbody id="tracker-body">
-      <!-- Avoma leads -->
-      <tr>
-        <td><strong>XYXX</strong></td>
-        <td><span class="source-badge src-avoma">Avoma</span></td>
-        <td><select class="stage-select" onchange="saveStage(this,'XYXX')" id="s-XYXX"><option value="">&#8212; Select stage</option><option value="demo-done">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="didnt-convert">Didn&#39;t Convert</option><option value="not-responsive">Not Responsive</option></select></td>
-        <td><textarea class="comment-input" rows="1" placeholder="Add note&#8230;" oninput="saveComment(this,'XYXX')" id="c-XYXX"></textarea></td>
-      </tr>
-      <tr>
-        <td><strong>BornGood</strong></td>
-        <td><span class="source-badge src-avoma">Avoma</span></td>
-        <td><select class="stage-select" onchange="saveStage(this,'BornGood')" id="s-BornGood"><option value="">&#8212; Select stage</option><option value="demo-done">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="didnt-convert">Didn&#39;t Convert</option><option value="not-responsive">Not Responsive</option></select></td>
-        <td><textarea class="comment-input" rows="1" placeholder="Add note&#8230;" oninput="saveComment(this,'BornGood')" id="c-BornGood"></textarea></td>
-      </tr>
-      <tr>
-        <td><strong>Dev Milk Foods (Frubon)</strong></td>
-        <td><span class="source-badge src-avoma">Avoma</span></td>
-        <td><select class="stage-select" onchange="saveStage(this,'DevMilkFoods')" id="s-DevMilkFoods"><option value="">&#8212; Select stage</option><option value="demo-done">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="didnt-convert">Didn&#39;t Convert</option><option value="not-responsive">Not Responsive</option></select></td>
-        <td><textarea class="comment-input" rows="1" placeholder="Add note&#8230;" oninput="saveComment(this,'DevMilkFoods')" id="c-DevMilkFoods"></textarea></td>
-      </tr>
-      <tr>
-        <td><strong>The Indus Valley</strong></td>
-        <td><span class="source-badge src-avoma">Avoma</span></td>
-        <td><select class="stage-select" onchange="saveStage(this,'IndusValley')" id="s-IndusValley"><option value="">&#8212; Select stage</option><option value="demo-done">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="didnt-convert">Didn&#39;t Convert</option><option value="not-responsive">Not Responsive</option></select></td>
-        <td><textarea class="comment-input" rows="1" placeholder="Add note&#8230;" oninput="saveComment(this,'IndusValley')" id="c-IndusValley"></textarea></td>
-      </tr>
-      <tr>
-        <td><strong>Sid's Farm</strong></td>
-        <td><span class="source-badge src-avoma">Avoma</span></td>
-        <td><select class="stage-select" onchange="saveStage(this,'SidsFarm')" id="s-SidsFarm"><option value="">&#8212; Select stage</option><option value="demo-done">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="didnt-convert">Didn&#39;t Convert</option><option value="not-responsive">Not Responsive</option></select></td>
-        <td><textarea class="comment-input" rows="1" placeholder="Add note&#8230;" oninput="saveComment(this,'SidsFarm')" id="c-SidsFarm"></textarea></td>
-      </tr>
-      <tr>
-        <td><strong>Dugar Overseas (DOPL)</strong></td>
-        <td><span class="source-badge src-avoma">Avoma</span></td>
-        <td><select class="stage-select" onchange="saveStage(this,'DugarOverseas')" id="s-DugarOverseas"><option value="">&#8212; Select stage</option><option value="demo-done">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="didnt-convert">Didn&#39;t Convert</option><option value="not-responsive">Not Responsive</option></select></td>
-        <td><textarea class="comment-input" rows="1" placeholder="Add note&#8230;" oninput="saveComment(this,'DugarOverseas')" id="c-DugarOverseas"></textarea></td>
-      </tr>
-      <tr>
-        <td><strong>Masterchow</strong></td>
-        <td><span class="source-badge src-avoma">Avoma</span></td>
-        <td><select class="stage-select" onchange="saveStage(this,'Masterchow')" id="s-Masterchow"><option value="">&#8212; Select stage</option><option value="demo-done">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="didnt-convert">Didn&#39;t Convert</option><option value="not-responsive">Not Responsive</option></select></td>
-        <td><textarea class="comment-input" rows="1" placeholder="Add note&#8230;" oninput="saveComment(this,'Masterchow')" id="c-Masterchow"></textarea></td>
-      </tr>
-      <tr>
-        <td><strong>Bambino Pasta</strong></td>
-        <td><span class="source-badge src-avoma">Avoma</span></td>
-        <td><select class="stage-select" onchange="saveStage(this,'BambinoPasta')" id="s-BambinoPasta"><option value="">&#8212; Select stage</option><option value="demo-done">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="didnt-convert">Didn&#39;t Convert</option><option value="not-responsive">Not Responsive</option></select></td>
-        <td><textarea class="comment-input" rows="1" placeholder="Add note&#8230;" oninput="saveComment(this,'BambinoPasta')" id="c-BambinoPasta"></textarea></td>
-      </tr>
-      <tr>
-        <td><strong>Dairy Day</strong></td>
-        <td><span class="source-badge src-avoma">Avoma</span></td>
-        <td><select class="stage-select" onchange="saveStage(this,'DairyDay')" id="s-DairyDay"><option value="">&#8212; Select stage</option><option value="demo-done">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="didnt-convert">Didn&#39;t Convert</option><option value="not-responsive">Not Responsive</option></select></td>
-        <td><textarea class="comment-input" rows="1" placeholder="Add note&#8230;" oninput="saveComment(this,'DairyDay')" id="c-DairyDay"></textarea></td>
-      </tr>
-      <!-- PostHog leads -->
-      <tr>
-        <td><strong>Wildstone</strong></td>
-        <td><span class="source-badge src-posthog">PostHog</span></td>
-        <td><select class="stage-select" onchange="saveStage(this,'Wildstone')" id="s-Wildstone"><option value="">&#8212; Select stage</option><option value="demo-done">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="didnt-convert">Didn&#39;t Convert</option><option value="not-responsive">Not Responsive</option></select></td>
-        <td><textarea class="comment-input" rows="1" placeholder="Add note&#8230;" oninput="saveComment(this,'Wildstone')" id="c-Wildstone"></textarea></td>
-      </tr>
-      <tr>
-        <td><strong>ITC Biscuits</strong></td>
-        <td><span class="source-badge src-posthog">PostHog</span></td>
-        <td><select class="stage-select" onchange="saveStage(this,'ITCBiscuits')" id="s-ITCBiscuits"><option value="">&#8212; Select stage</option><option value="demo-done">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="didnt-convert">Didn&#39;t Convert</option><option value="not-responsive">Not Responsive</option></select></td>
-        <td><textarea class="comment-input" rows="1" placeholder="Add note&#8230;" oninput="saveComment(this,'ITCBiscuits')" id="c-ITCBiscuits"></textarea></td>
-      </tr>
-      <tr>
-        <td><strong>ITC Pranah</strong></td>
-        <td><span class="source-badge src-posthog">PostHog</span></td>
-        <td><select class="stage-select" onchange="saveStage(this,'ITCPranah')" id="s-ITCPranah"><option value="">&#8212; Select stage</option><option value="demo-done">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="didnt-convert">Didn&#39;t Convert</option><option value="not-responsive">Not Responsive</option></select></td>
-        <td><textarea class="comment-input" rows="1" placeholder="Add note&#8230;" oninput="saveComment(this,'ITCPranah')" id="c-ITCPranah"></textarea></td>
-      </tr>
-      <tr>
-        <td><strong>Stroom</strong></td>
-        <td><span class="source-badge src-posthog">PostHog</span></td>
-        <td><select class="stage-select" onchange="saveStage(this,'Stroom')" id="s-Stroom"><option value="">&#8212; Select stage</option><option value="demo-done">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="didnt-convert">Didn&#39;t Convert</option><option value="not-responsive">Not Responsive</option></select></td>
-        <td><textarea class="comment-input" rows="1" placeholder="Add note&#8230;" oninput="saveComment(this,'Stroom')" id="c-Stroom"></textarea></td>
-      </tr>
-      <tr>
-        <td><strong>Skininspired</strong></td>
-        <td><span class="source-badge src-posthog">PostHog</span></td>
-        <td><select class="stage-select" onchange="saveStage(this,'Skininspired')" id="s-Skininspired"><option value="">&#8212; Select stage</option><option value="demo-done">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="didnt-convert">Didn&#39;t Convert</option><option value="not-responsive">Not Responsive</option></select></td>
-        <td><textarea class="comment-input" rows="1" placeholder="Add note&#8230;" oninput="saveComment(this,'Skininspired')" id="c-Skininspired"></textarea></td>
-      </tr>
-      <tr>
-        <td><strong>Lal Sweets</strong></td>
-        <td><span class="source-badge src-posthog">PostHog</span></td>
-        <td><select class="stage-select" onchange="saveStage(this,'LalSweets')" id="s-LalSweets"><option value="">&#8212; Select stage</option><option value="demo-done">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="didnt-convert">Didn&#39;t Convert</option><option value="not-responsive">Not Responsive</option></select></td>
-        <td><textarea class="comment-input" rows="1" placeholder="Add note&#8230;" oninput="saveComment(this,'LalSweets')" id="c-LalSweets"></textarea></td>
-      </tr>
-      <tr>
-        <td><strong>Wellcore</strong></td>
-        <td><span class="source-badge src-posthog">PostHog</span></td>
-        <td><select class="stage-select" onchange="saveStage(this,'Wellcore')" id="s-Wellcore"><option value="">&#8212; Select stage</option><option value="demo-done">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="didnt-convert">Didn&#39;t Convert</option><option value="not-responsive">Not Responsive</option></select></td>
-        <td><textarea class="comment-input" rows="1" placeholder="Add note&#8230;" oninput="saveComment(this,'Wellcore')" id="c-Wellcore"></textarea></td>
-      </tr>
-    </tbody>
-  </table>
 </div>
 
 <script>
-// &#9472;&#9472; Stage colour classes
-const stageClass = {
-  'demo-done':      's-demo-done',
-  'trial':          's-trial',
-  'converted':      's-converted',
-  'didnt-convert':  's-didnt-convert',
-  'not-responsive': 's-not-responsive'
-};
+  function toggleCard(header) {
+    const body = header.nextElementSibling;
+    const isOpen = body.classList.contains('open');
+    body.classList.toggle('open', !isOpen);
+    header.querySelector('span:last-child').textContent = isOpen ? '&#9660;' : '&#9650;';
+  }
 
-function saveStage(sel, key) {
-  const val = sel.value;
-  // Apply colour
-  sel.className = 'stage-select' + (val ? ' ' + (stageClass[val] || '') : '');
-  localStorage.setItem('pm_stage_' + key, val);
-  flashSave();
-}
+  function saveStage(key, value) {
+    try { localStorage.setItem('pmtracker_' + key, value); } catch(e) {}
+  }
 
-function saveComment(ta, key) {
-  localStorage.setItem('pm_comment_' + key, ta.value);
-  // Auto-resize
-  ta.style.height = 'auto';
-  ta.style.height = ta.scrollHeight + 'px';
-  flashSave();
-}
+  function saveNote(key, value) {
+    try { localStorage.setItem('pmtracker_' + key, value); } catch(e) {}
+  }
 
-let flashTimer;
-function flashSave() {
-  const dot = document.getElementById('save-indicator');
-  dot.classList.add('visible');
-  clearTimeout(flashTimer);
-  flashTimer = setTimeout(() => dot.classList.remove('visible'), 1200);
-}
+  function flashSave(el) {
+    clearTimeout(el._saveTimer);
+    el._saveTimer = setTimeout(() => {
+      saveNote(el.getAttribute('onchange').match(/'([^']+)'/)[1], el.value);
+    }, 800);
+  }
 
-// &#9472;&#9472; Restore saved values on load
-const brands = ['XYXX','BornGood','DevMilkFoods','IndusValley','SidsFarm','DugarOverseas',
-                 'Masterchow','BambinoPasta','DairyDay',
-                 'Wildstone','ITCBiscuits','ITCPranah','Stroom','Skininspired','LalSweets','Wellcore'];
-
-window.addEventListener('DOMContentLoaded', () => {
-  brands.forEach(key => {
-    const savedStage = localStorage.getItem('pm_stage_' + key);
-    const savedComment = localStorage.getItem('pm_comment_' + key);
-    const sel = document.getElementById('s-' + key);
-    const ta  = document.getElementById('c-' + key);
-    if (sel && savedStage) {
-      sel.value = savedStage;
-      sel.className = 'stage-select' + (savedStage ? ' ' + (stageClass[savedStage] || '') : '');
-    }
-    if (ta && savedComment) {
-      ta.value = savedComment;
-      ta.style.height = 'auto';
-      ta.style.height = ta.scrollHeight + 'px';
-    }
+  // Restore saved state on load
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('select.stage-select').forEach(sel => {
+      const key = sel.getAttribute('onchange').match(/'([^']+)'/)[1];
+      try {
+        const saved = localStorage.getItem('pmtracker_' + key);
+        if (saved) sel.value = saved;
+      } catch(e) {}
+    });
+    document.querySelectorAll('textarea.comment-input').forEach(ta => {
+      const key = ta.getAttribute('onchange').match(/'([^']+)'/)[1];
+      try {
+        const saved = localStorage.getItem('pmtracker_' + key);
+        if (saved) ta.value = saved;
+      } catch(e) {}
+    });
   });
-});
-
-// &#9472;&#9472; Card toggle
-function toggleCard(header) {
-  const body = header.nextElementSibling;
-  const ch = header.querySelector('.chevron');
-  const isOpen = body.classList.contains('open');
-  body.classList.toggle('open', !isOpen);
-  ch.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(90deg)';
-}
 </script>
+
 </body>
 </html>

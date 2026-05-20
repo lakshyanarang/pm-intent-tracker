@@ -121,11 +121,11 @@
     padding-right: 28px;
   }
   .stage-select:focus { border-color: #58a6ff; }
-  .stage-select.s-lead-requested { border-color: #1f4b7a; color: #58a6ff; }
-  .stage-select.s-demo           { border-color: #7a4f00; color: var(--warm); }
-  .stage-select.s-onboarding     { border-color: #1a5c1a; color: var(--green); }
+  .stage-select.s-demo-done      { border-color: #1f4b7a; color: #58a6ff; }
   .stage-select.s-trial          { border-color: #6e3fa3; color: var(--purple); }
-  .stage-select.s-live           { border-color: #8b1a1a; color: var(--hot); }
+  .stage-select.s-converted      { border-color: #1a5c1a; color: var(--green); }
+  .stage-select.s-didnt-convert  { border-color: #8b1a1a; color: var(--hot); }
+  .stage-select.s-not-responsive { border-color: #444c56; color: var(--muted); }
 
   .comment-input {
     background: transparent;
@@ -181,7 +181,7 @@
         <li class="evidence-item">
           <span class="kw kw-high">HIGH &#183; ROAS</span>
           <span class="quote">"Our ROAS on Blinkit is terrible &#8212; we're spending but not converting. What's the benchmark?"</span>
-          <div class="who">Neha Kaushik / XYXX &#8212; May 4</div>
+          <div class="whn">Neha Kaushik / XYXX &#8212; May 4</div>
         </li>
         <li class="evidence-item">
           <span class="kw kw-high">HIGH &#183; Campaign Budget</span>
@@ -408,7 +408,7 @@
       <div class="meta-row"><div class="meta-item">&#128197; <span>May 5, 2026</span></div></div>
       <ul class="evidence-list">
         <li class="evidence-item">
-          <span cl!ss="kw kw-med">MED &#183; Visibility</span>
+          <span class="kw kw-med">MED &#183; Visibility</span>
           <span class="quote">Incidental discussion about visibility improvement &#8212; client engaged with concept but did not explicitly request PM features.</span>
           <div class="who">May 5 meeting</div>
         </li>
@@ -522,98 +522,98 @@
       <tr>
         <td><strong>XYXX</strong></td>
         <td><span class="source-badge src-avoma">Avoma</span></td>
-        <td><select class="stage-select" onchange="saveStage(this,'XYXX')" id="s-XYXX"><option value="">&#8212; Select stage</option><option value="lead-requested">Lead Requested</option><option value="demo">Demo</option><option value="onboarding">Onboarding</option><option value="trial">Trial</option><option value="live">Live</option></select></td>
+        <td><select class="stage-select" onchange="saveStage(this,'XYXX')" id="s-XYXX"><option value="">&#8212; Select stage</option><option value="demo-done">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="didnt-convert">Didn&#39;t Convert</option><option value="not-responsive">Not Responsive</option></select></td>
         <td><textarea class="comment-input" rows="1" placeholder="Add note&#8230;" oninput="saveComment(this,'XYXX')" id="c-XYXX"></textarea></td>
       </tr>
       <tr>
         <td><strong>BornGood</strong></td>
         <td><span class="source-badge src-avoma">Avoma</span></td>
-        <td><select class="stage-select" onchange="saveStage(this,'BornGood')" id="s-BornGood"><option value="">&#8212; Select stage</option><option value="lead-requested">Lead Requested</option><option value="demo">Demo</option><option value="onboarding">Onboarding</option><option value="trial">Trial</option><option value="live">Live</option></select></td>
+        <td><select class="stage-select" onchange="saveStage(this,'BornGood')" id="s-BornGood"><option value="">&#8212; Select stage</option><option value="demo-done">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="didnt-convert">Didn&#39;t Convert</option><option value="not-responsive">Not Responsive</option></select></td>
         <td><textarea class="comment-input" rows="1" placeholder="Add note&#8230;" oninput="saveComment(this,'BornGood')" id="c-BornGood"></textarea></td>
       </tr>
       <tr>
         <td><strong>Dev Milk Foods (Frubon)</strong></td>
         <td><span class="source-badge src-avoma">Avoma</span></td>
-        <td><select class="stage-select" onchange="saveStage(this,'DevMilkFoods')" id="s-DevMilkFoods"><option value="">&#8212; Select stage</option><option value="lead-requested">Lead Requested</option><option value="demo">Demo</option><option value="onboarding">Onboarding</option><option value="trial">Trial</option><option value="live">Live</option></select></td>
+        <td><select class="stage-select" onchange="saveStage(this,'DevMilkFoods')" id="s-DevMilkFoods"><option value="">&#8212; Select stage</option><option value="demo-done">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="didnt-convert">Didn&#39;t Convert</option><option value="not-responsive">Not Responsive</option></select></td>
         <td><textarea class="comment-input" rows="1" placeholder="Add note&#8230;" oninput="saveComment(this,'DevMilkFoods')" id="c-DevMilkFoods"></textarea></td>
       </tr>
       <tr>
         <td><strong>The Indus Valley</strong></td>
         <td><span class="source-badge src-avoma">Avoma</span></td>
-        <td><select class="stage-select" onchange="saveStage(this,'IndusValley')" id="s-IndusValley"><option value="">&#8212; Select stage</option><option value="lead-requested">Lead Requested</option><option value="demo">Demo</option><option value="onboarding">Onboarding</option><option value="trial">Trial</option><option value="live">Live</option></select></td>
+        <td><select class="stage-select" onchange="saveStage(this,'IndusValley')" id="s-IndusValley"><option value="">&#8212; Select stage</option><option value="demo-done">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="didnt-convert">Didn&#39;t Convert</option><option value="not-responsive">Not Responsive</option></select></td>
         <td><textarea class="comment-input" rows="1" placeholder="Add note&#8230;" oninput="saveComment(this,'IndusValley')" id="c-IndusValley"></textarea></td>
       </tr>
       <tr>
         <td><strong>Sid's Farm</strong></td>
         <td><span class="source-badge src-avoma">Avoma</span></td>
-        <td><select class="stage-select" onchange="saveStage(this,'SidsFarm')" id="s-SidsFarm"><option value="">&#8212; Select stage</option><option value="lead-requested">Lead Requested</option><option value="demo">Demo</option><option value="onboarding">Onboarding</option><option value="trial">Trial</option><option value="live">Live</option></select></td>
+        <td><select class="stage-select" onchange="saveStage(this,'SidsFarm')" id="s-SidsFarm"><option value="">&#8212; Select stage</option><option value="demo-done">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="didnt-convert">Didn&#39;t Convert</option><option value="not-responsive">Not Responsive</option></select></td>
         <td><textarea class="comment-input" rows="1" placeholder="Add note&#8230;" oninput="saveComment(this,'SidsFarm')" id="c-SidsFarm"></textarea></td>
       </tr>
       <tr>
         <td><strong>Dugar Overseas (DOPL)</strong></td>
         <td><span class="source-badge src-avoma">Avoma</span></td>
-        <td><select class="stage-select" onchange="saveStage(this,'DugarOverseas')" id="s-DugarOverseas"><option value="">&#8212; Select stage</option><option value="lead-requested">Lead Requested</option><option value="demo">Demo</option><option value="onboarding">Onboarding</option><option value="trial">Trial</option><option value="live">Live</option></select></td>
+        <td><select class="stage-select" onchange="saveStage(this,'DugarOverseas')" id="s-DugarOverseas"><option value="">&#8212; Select stage</option><option value="demo-done">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="didnt-convert">Didn&#39;t Convert</option><option value="not-responsive">Not Responsive</option></select></td>
         <td><textarea class="comment-input" rows="1" placeholder="Add note&#8230;" oninput="saveComment(this,'DugarOverseas')" id="c-DugarOverseas"></textarea></td>
       </tr>
       <tr>
         <td><strong>Masterchow</strong></td>
         <td><span class="source-badge src-avoma">Avoma</span></td>
-        <td><select class="stage-select" onchange="saveStage(this,'Masterchow')" id="s-Masterchow"><option value="">&#8212; Select stage</option><option value="lead-requested">Lead Requested</option><option value="demo">Demo</option><option value="onboarding">Onboarding</option><option value="trial">Trial</option><option value="live">Live</option></select></td>
+        <td><select class="stage-select" onchange="saveStage(this,'Masterchow')" id="s-Masterchow"><option value="">&#8212; Select stage</option><option value="demo-done">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="didnt-convert">Didn&#39;t Convert</option><option value="not-responsive">Not Responsive</option></select></td>
         <td><textarea class="comment-input" rows="1" placeholder="Add note&#8230;" oninput="saveComment(this,'Masterchow')" id="c-Masterchow"></textarea></td>
       </tr>
       <tr>
         <td><strong>Bambino Pasta</strong></td>
         <td><span class="source-badge src-avoma">Avoma</span></td>
-        <td><select class="stage-select" onchange="saveStage(this,'BambinoPasta')" id="s-BambinoPasta"><option value="">&#8212; Select stage</option><option value="lead-requested">Lead Requested</option><option value="demo">Demo</option><option value="onboarding">Onboarding</option><option value="trial">Trial</option><option value="live">Live</option></select></td>
+        <td><select class="stage-select" onchange="saveStage(this,'BambinoPasta')" id="s-BambinoPasta"><option value="">&#8212; Select stage</option><option value="demo-done">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="didnt-convert">Didn&#39;t Convert</option><option value="not-responsive">Not Responsive</option></select></td>
         <td><textarea class="comment-input" rows="1" placeholder="Add note&#8230;" oninput="saveComment(this,'BambinoPasta')" id="c-BambinoPasta"></textarea></td>
       </tr>
       <tr>
         <td><strong>Dairy Day</strong></td>
         <td><span class="source-badge src-avoma">Avoma</span></td>
-        <td><select class="stage-select" onchange="saveStage(this,'DairyDay')" id="s-DairyDay"><option value="">&#8212; Select stage<//ption><option value="lead-requested">Lead Requested</option><option value="demo">Demo</option><option value="onboarding">Onboarding</option><option value="trial">Trial</option><option value="live">Live</option></select></td>
+        <td><select class="stage-select" onchange="saveStage(this,'DairyDay')" id="s-DairyDay"><option value="">&#8212; Select stage</option><option value="demo-done">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="didnt-convert">Didn&#39;t Convert</option><option value="not-responsive">Not Responsive</option></select></td>
         <td><textarea class="comment-input" rows="1" placeholder="Add note&#8230;" oninput="saveComment(this,'DairyDay')" id="c-DairyDay"></textarea></td>
       </tr>
-      <!-- PostHoG leads -->
+      <!-- PostHog leads -->
       <tr>
         <td><strong>Wildstone</strong></td>
         <td><span class="source-badge src-posthog">PostHog</span></td>
-        <td><select class="stage-select" onchange="saveStage(this,'Wildstone')" id="s-Wildstone"><option value="">&#8212; Select stage</option><option value="lead-requested">Lead Requested</option><option value="demo">Demo</option><option value="onboarding">Onboarding</option><option value="trial">Trial</option><option value="live">Live</option></select></td>
+        <td><select class="stage-select" onchange="saveStage(this,'Wildstone')" id="s-Wildstone"><option value="">&#8212; Select stage</option><option value="demo-done">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="didnt-convert">Didn&#39;t Convert</option><option value="not-responsive">Not Responsive</option></select></td>
         <td><textarea class="comment-input" rows="1" placeholder="Add note&#8230;" oninput="saveComment(this,'Wildstone')" id="c-Wildstone"></textarea></td>
       </tr>
       <tr>
         <td><strong>ITC Biscuits</strong></td>
         <td><span class="source-badge src-posthog">PostHog</span></td>
-        <td><select class="stage-select" onchange="saveStage(this,'ITCBiscuits')" id="s-ITCBiscuits"><option value="">&#8212; Select stage</option><option value="lead-requested">Lead Requested</option><option value="demo">Demo</option><option value="onboarding">Onboarding</option><option value="trial">Trial</option><option value="live">Live</option></select></td>
+        <td><select class="stage-select" onchange="saveStage(this,'ITCBiscuits')" id="s-ITCBiscuits"><option value="">&#8212; Select stage</option><option value="demo-done">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="didnt-convert">Didn&#39;t Convert</option><option value="not-responsive">Not Responsive</option></select></td>
         <td><textarea class="comment-input" rows="1" placeholder="Add note&#8230;" oninput="saveComment(this,'ITCBiscuits')" id="c-ITCBiscuits"></textarea></td>
       </tr>
       <tr>
         <td><strong>ITC Pranah</strong></td>
         <td><span class="source-badge src-posthog">PostHog</span></td>
-        <td><select class="stage-select" onchange="saveStage(this,'ITCPranah')" id="s-ITCPranah"><option value="">&#8212; Select stage</option><option value="lead-requested">Lead Requested</option><option value="demo">Demo</option><option value="onboarding">Onboarding</option><option value="trial">Trial</option><option value="live">Live</option></select></td>
+        <td><select class="stage-select" onchange="saveStage(this,'ITCPranah')" id="s-ITCPranah"><option value="">&#8212; Select stage</option><option value="demo-done">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="didnt-convert">Didn&#39;t Convert</option><option value="not-responsive">Not Responsive</option></select></td>
         <td><textarea class="comment-input" rows="1" placeholder="Add note&#8230;" oninput="saveComment(this,'ITCPranah')" id="c-ITCPranah"></textarea></td>
       </tr>
       <tr>
         <td><strong>Stroom</strong></td>
         <td><span class="source-badge src-posthog">PostHog</span></td>
-        <td><select class="stage-select" onchange="saveStage(this,'Stroom')" id="s-Stroom"><option value="">&#8212; Select stage</option><option value="lead-requested">Lead Requested</option><option value="demo">Demo</option><option value="onboarding">Onboarding</option><option value="trial">Trial</option><option value="live">Live</option></select></td>
+        <td><select class="stage-select" onchange="saveStage(this,'Stroom')" id="s-Stroom"><option value="">&#8212; Select stage</option><option value="demo-done">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="didnt-convert">Didn&#39;t Convert</option><option value="not-responsive">Not Responsive</option></select></td>
         <td><textarea class="comment-input" rows="1" placeholder="Add note&#8230;" oninput="saveComment(this,'Stroom')" id="c-Stroom"></textarea></td>
       </tr>
       <tr>
         <td><strong>Skininspired</strong></td>
         <td><span class="source-badge src-posthog">PostHog</span></td>
-        <td><select class="stage-select" onchange="saveStage(this,'Skininspired')" id="s-Skininspired"><option value="">&#8212; Select stage</option><option value="lead-requested">Lead Requested</option><option value="demo">Demo</option><option value="onboarding">Onboarding</option><option value="trial">Trial</option><option value="live">Live</option></select></td>
+        <td><select class="stage-select" onchange="saveStage(this,'Skininspired')" id="s-Skininspired"><option value="">&#8212; Select stage</option><option value="demo-done">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="didnt-convert">Didn&#39;t Convert</option><option value="not-responsive">Not Responsive</option></select></td>
         <td><textarea class="comment-input" rows="1" placeholder="Add note&#8230;" oninput="saveComment(this,'Skininspired')" id="c-Skininspired"></textarea></td>
       </tr>
       <tr>
         <td><strong>Lal Sweets</strong></td>
         <td><span class="source-badge src-posthog">PostHog</span></td>
-        <td><select class="stage-select" onchange="saveStage(this,'LalSweets')" id="s-LalSweets"><option value="">&#8212; Select stage</option><option value="lead-requested">Lead Requested</option><option value="demo">Demo</option><option value="onboarding">Onboarding</option><option value="trial">Trial</option><option value="live">Live</option></select></td>
+        <td><select class="stage-select" onchange="saveStage(this,'LalSweets')" id="s-LalSweets"><option value="">&#8212; Select stage</option><option value="demo-done">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="didnt-convert">Didn&#39;t Convert</option><option value="not-responsive">Not Responsive</option></select></td>
         <td><textarea class="comment-input" rows="1" placeholder="Add note&#8230;" oninput="saveComment(this,'LalSweets')" id="c-LalSweets"></textarea></td>
       </tr>
       <tr>
         <td><strong>Wellcore</strong></td>
         <td><span class="source-badge src-posthog">PostHog</span></td>
-        <td><select class="stage-select" onchange="saveStage(this,'Wellcore')" id="s-Wellcore"><option value="">&#8212; Select stage</option><option value="lead-requested">Lead Requested</option><option value="demo">Demo</option><option value="onboarding">Onboarding</option><option value="trial">Trial</option><option value="live">Live</option></select></td>
+        <td><select class="stage-select" onchange="saveStage(this,'Wellcore')" id="s-Wellcore"><option value="">&#8212; Select stage</option><option value="demo-done">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="didnt-convert">Didn&#39;t Convert</option><option value="not-responsive">Not Responsive</option></select></td>
         <td><textarea class="comment-input" rows="1" placeholder="Add note&#8230;" oninput="saveComment(this,'Wellcore')" id="c-Wellcore"></textarea></td>
       </tr>
     </tbody>
@@ -623,11 +623,11 @@
 <script>
 // &#9472;&#9472; Stage colour classes
 const stageClass = {
-  'lead-requested': 's-lead-requested',
-  'demo':           's-demo',
-  'onboarding':     's-onboarding',
+  'demo-done':      's-demo-done',
   'trial':          's-trial',
-  'live':           's-live'
+  'converted':      's-converted',
+  'didnt-convert':  's-didnt-convert',
+  'not-responsive': 's-not-responsive'
 };
 
 function saveStage(sel, key) {

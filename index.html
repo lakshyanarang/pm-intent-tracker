@@ -157,6 +157,8 @@
 
 <!-- &#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552; -->
 <!-- SECTION 1: AVOMA + PERISCOPE LEADS          -->
+<div style="background:#7a6000;color:#ffe082;padding:10px 18px;border-radius:6px;margin:12px 0 0 0;font-size:0.85rem;">&#9888; HubSpot PM pipeline filter could not be applied this run (connection invalidated). Some existing PM customers may appear below &mdash; please review manually.</div>
+
 <!-- &#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552; -->
 <div class="section">
   <div class="section-label sl-avoma">&#128202; Avoma + Periscope Leads &#183; 10 brands</div>
@@ -473,6 +475,39 @@
           <div class="action-box">&#9654; Schedule PM intro call &#8212; meeting title signals active PM interest.</div>
         </div>
       </div>
+      <div class="brand-card hot" onclick="toggleCard(this)">
+        <div class="card-header">
+          <span class="score-badge hot">HOT &middot; 43</span>
+          <span class="brand-name">Nobel Hygiene</span>
+          <span class="meeting-date">May 20</span>
+        </div>
+        <div class="card-body">
+          <div class="kw-chips">
+            <span class="kw-chip">ROAS</span>
+            <span class="kw-chip">SOV</span>
+            <span class="kw-chip">share of voice</span>
+            <span class="kw-chip">ranking</span>
+            <span class="kw-chip">competitor</span>
+          </div>
+          <div class="quote">&ldquo;not even getting a ROAS, a better ROAS, for example, 3 two 6&rdquo;</div>
+          <div class="rec-action">Recommended: Demo call &rarr; pitch PM automation on Blinkit SOV recovery</div>
+        </div>
+      </div>
+      <div class="brand-card early" onclick="toggleCard(this)">
+        <div class="card-header">
+          <span class="score-badge early">EARLY &middot; 5</span>
+          <span class="brand-name">Sweet Karam Coffee</span>
+          <span class="meeting-date">May 15</span>
+        </div>
+        <div class="card-body">
+          <div class="kw-chips">
+            <span class="kw-chip">campaign health</span>
+            <span class="kw-chip">Blinkit</span>
+          </div>
+          <div class="quote">&ldquo;Perform campaign health, basically, and anything that you can do additionally improve revenue&rdquo;</div>
+          <div class="rec-action">Recommended: Share Perf audit results &rarr; qualify PM interest</div>
+        </div>
+      </div>
 <!-- SECTION 2: PLG LEADS                   -->
 <!-- &#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552; -->
 <div class="section">
@@ -611,6 +646,32 @@
         <td><select id="s-SupplySix" class="stage-select" onchange="saveStage(this,'SupplySix')"><option value="">&#8212; Select stage</option><option value="demo_done">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="lost">Didn't Convert</option><option value="not_responsive">Not Responsive</option></select></td>
         <td><textarea id="c-SupplySix" class="comment-input" rows="1" placeholder="Add notes..." oninput="saveComment(this,'SupplySix')"></textarea></td>
       </tr>
+      <tr>
+        <td><strong>Nobel Hygiene</strong></td>
+        <td><span class="source-badge src-avoma">Avoma</span></td>
+        <td><select id="s-NobelhygieneAV" class="stage-select" onchange="saveStage(this,'NobelhygieneAV')">
+          <option value="">&mdash; Select stage</option>
+          <option value="demo_done">Demo Done</option>
+          <option value="trial">Trial</option>
+          <option value="converted">Converted</option>
+          <option value="lost">Didn't Convert</option>
+          <option value="not_responsive">Not Responsive</option>
+        </select></td>
+        <td><textarea id="c-NobelhygieneAV" class="comment-input" rows="1" placeholder="Add notes..." oninput="saveComment(this,'NobelhygieneAV')"></textarea></td>
+      </tr>
+      <tr>
+        <td><strong>Sweet Karam Coffee</strong></td>
+        <td><span class="source-badge src-avoma">Avoma</span></td>
+        <td><select id="s-SweetkaramcoffeeAV" class="stage-select" onchange="saveStage(this,'SweetkaramcoffeeAV')">
+          <option value="">&mdash; Select stage</option>
+          <option value="demo_done">Demo Done</option>
+          <option value="trial">Trial</option>
+          <option value="converted">Converted</option>
+          <option value="lost">Didn't Convert</option>
+          <option value="not_responsive">Not Responsive</option>
+        </select></td>
+        <td><textarea id="c-SweetkaramcoffeeAV" class="comment-input" rows="1" placeholder="Add notes..." oninput="saveComment(this,'SweetkaramcoffeeAV')"></textarea></td>
+      </tr>
 <!-- PLG leads -->
       <tr>
         <td><strong>Dairy Day&#8230;</strong></td>
@@ -726,7 +787,7 @@ function flashSave() {
 const brands = ['XYXX','BornGood','DevMilkFoods','IndusValley','SidsFarm','DugarOverseas',
                 'Masterchow','BambinoPasta','DairyDay',
                 'Wildstone','ITCBiscuits','ITCPranah','Stroom','Skininspired','LalSweets','Wellcore',
-                'SupplySix','plg_dairyday','plg_sugarcosmetics','plg_rosierfoods','plg_complan','plg_wildstone','plg_itcbiscuits','plg_itcpranah','plg_stroom','plg_skininspired','plg_lalsweets','plg_selectaisle','plg_wellcore'];
+                'SupplySix','plg_dairyday','plg_sugarcosmetics','plg_rosierfoods','plg_complan','plg_wildstone','plg_itcbiscuits','plg_itcpranah','plg_stroom','plg_skininspired','plg_lalsweets','plg_selectaisle','plg_wellcore','NobelhygieneAV','SweetkaramcoffeeAV'];
 
 window.addEventListener('DOMContentLoaded', () => {
   brands.forEach(key => {

@@ -3,131 +3,156 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PM Lead Tracker &#8212; All Runs</title>
+<title>PM Lead Tracker &#8212; Apr 22 to May 7, 2026</title>
 <style>
-:root{--bg:#0d1117;--surface:#161b22;--surface2:#21262d;--border:#30363d;--text:#e6edf3;--muted:#8b949e;--red:#f85149;--amber:#d29922;--blue:#58a6ff;--green:#3fb950;--purple:#bc8cff;}
-*{box-sizing:border-box;margin:0;padding:0;}
-body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',monospace;font-size:14px;line-height:1.6;}
-.site-header{background:var(--surface);border-bottom:1px solid var(--border);padding:16px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
-.site-header h1{font-size:18px;font-weight:600;}
-.tab-bar{background:var(--surface);border-bottom:1px solid var(--border);padding:0 32px;display:flex;position:sticky;top:57px;z-index:99;}
-.tab-btn{padding:11px 20px;background:transparent;border:none;border-bottom:2px solid transparent;color:var(--muted);cursor:pointer;font-size:13px;font-family:inherit;transition:color .15s;}
-.tab-btn:hover{color:var(--text);}
-.tab-btn.active{border-bottom-color:var(--blue);color:var(--blue);font-weight:600;}
-.run-panel{display:none;}
-.run-panel.active{display:block;}
-.container{max-width:1100px;margin:0 auto;padding:24px 32px;}
-.banner{background:#3d2f00;border:1px solid #9e6a03;border-radius:8px;padding:12px 16px;margin-bottom:16px;color:#e3b341;font-size:13px;display:flex;align-items:flex-start;gap:10px;}
-.section-title{font-size:16px;font-weight:600;margin:32px 0 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border);padding-bottom:12px;}
-.count-badge{background:var(--surface2);border:1px solid var(--border);color:var(--muted);font-size:11px;padding:2px 8px;border-radius:10px;font-weight:400;}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:8px;margin-bottom:12px;overflow:hidden;}
-.card-header{padding:14px 16px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;}
-.card-header:hover{background:var(--surface2);}
-.card-title{display:flex;align-items:center;gap:10px;font-weight:500;}
-.card-body{padding:16px;border-top:1px solid var(--border);display:none;}
-.card-body.open{display:block;}
-.badge{font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px;letter-spacing:.5px;}
-.badge-hot{background:rgba(248,81,73,.15);color:var(--red);border:1px solid rgba(248,81,73,.3);}
-.badge-warm{background:rgba(210,153,34,.15);color:var(--amber);border:1px solid rgba(210,153,34,.3);}
-.badge-early{background:rgba(88,166,255,.15);color:var(--blue);border:1px solid rgba(88,166,255,.3);}
-.badge-prospect{background:rgba(188,140,255,.15);color:var(--purple);border:1px solid rgba(188,140,255,.3);}
-.chip{display:inline-block;background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:2px 8px;font-size:11px;color:var(--muted);margin:2px;font-family:monospace;}
-.chip-signal{color:var(--green);border-color:rgba(63,185,80,.3);background:rgba(63,185,80,.08);}
-.action-box{background:var(--surface2);border-left:3px solid var(--blue);border-radius:0 6px 6px 0;padding:10px 14px;margin-top:12px;font-size:13px;}
-.action-label{color:var(--blue);font-size:11px;font-weight:600;letter-spacing:.5px;margin-bottom:4px;}
-.posthog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px;margin-bottom:24px;}
-.posthog-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px;}
-.posthog-card .user-id{font-family:monospace;font-size:11px;color:var(--muted);margin-bottom:6px;}
-.posthog-card .clicks{font-size:22px;font-weight:700;color:var(--blue);}
-.posthog-card .last-click{font-size:11px;color:var(--green);margin-top:6px;}
-table{width:100%;border-collapse:collapse;font-size:13px;}
-th{text-align:left;padding:10px 12px;background:var(--surface2);color:var(--muted);font-weight:500;font-size:11px;letter-spacing:.5px;border-bottom:1px solid var(--border);}
-td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:middle;}
-tr:last-child td{border-bottom:none;}
-tr:hover td{background:var(--surface2);}
-select.stage-select{background:transparent;border:1px solid transparent;border-radius:5px;color:var(--text);font-size:12px;padding:5px 8px;width:100%;outline:none;font-family:inherit;cursor:pointer;}
-select.stage-select:hover,select.stage-select:focus{border-color:var(--border);background:var(--surface2);}
-textarea.comment-input{background:transparent;border:1px solid transparent;border-radius:5px;color:var(--text);font-size:12px;padding:5px 8px;width:100%;outline:none;font-family:inherit;resize:none;}
-textarea.comment-input:hover,textarea.comment-input:focus{border-color:var(--border);background:var(--surface2);}
-textarea.comment-input::placeholder{color:var(--muted);opacity:.6;}
-.save-dot{width:6px;height:6px;border-radius:50%;background:var(--green);opacity:0;transition:opacity .3s;display:inline-block;margin-left:4px;vertical-align:middle;}
-.save-dot.visible{opacity:1;}
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --surface2: #21262d;
+    --border: #30363d;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --hot: #ff4d4d;
+    --hot-bg: #2d0f0f;
+    --hot-border: #8b1a1a;
+    --warm: #f5a623;
+    --warm-bg: #2d1e06;
+    --warm-border: #7a4f00;
+    --early: #58a6ff;
+    --early-bg: #0d1f36;
+    --early-border: #1f4b7a;
+    --green: #3fb950;
+    --teal: #39d353;
+    --purple: #bc8cff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; padding: 24px; line-height: 1.5; max-width: 1100px; margin: 0 auto; }
+
+  /* HEADER */
+  .header { border-bottom: 1px solid var(--border); padding-bottom: 18px; margin-bottom: 28px; }
+  .header h1 { font-size: 20px; font-weight: 600; color: #f0f6fc; }
+  .header .meta { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+  /* SECTION LABELS */
+  .section { margin-bottom: 36px; }
+  .section-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 5px 12px; border-radius: 4px; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+  .sl-avoma { background: #1a1000; border: 1px solid #7a4f00; color: var(--warm); }
+  .sl-posthog { background: #0a1e14; border: 1px solid #1a5c38; color: var(--teal); }
+  .sl-tracker { background: #1a0a2e; border: 1px solid #6e3fa3; color: var(--purple); }
+
+  /* BRAND CARDS (Section 1) */
+  .brand-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 8px; overflow: hidden; }
+  .brand-card-hot { border-color: var(--hot-border); }
+  .brand-card-warm { border-color: var(--warm-border); }
+  .brand-card-early { border-color: var(--early-border); }
+
+  .brand-header { display: flex; align-items: center; gap: 12px; padding: 11px 16px; cursor: pointer; user-select: none; }
+  .brand-header:hover { background: var(--surface2); }
+  .brand-name { font-weight: 600; font-size: 14px; flex: 1; }
+  .tier-badge { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .badge-hot { background: var(--hot-bg); border: 1px solid var(--hot-border); color: var(--hot); }
+  .badge-warm { background: var(--warm-bg); border: 1px solid var(--warm-border); color: var(--warm); }
+  .badge-early { background: var(--early-bg); border: 1px solid var(--early-border); color: var(--early); }
+
+  .score-bar-wrap { display: flex; align-items: center; gap: 8px; min-width: 130px; }
+  .score-bar { flex: 1; height: 5px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
+  .score-fill-hot { height: 100%; background: var(--hot); border-radius: 3px; }
+  .score-fill-warm { height: 100%; background: var(--warm); border-radius: 3px; }
+  .score-fill-early { height: 100%; background: var(--early); border-radius: 3px; }
+  .score-num { font-size: 11px; color: var(--muted); min-width: 32px; text-align: right; }
+  .chevron { color: var(--muted); font-size: 10px; transition: transform 0.2s; }
+
+  .brand-body { padding: 12px 16px; display: none; border-top: 1px solid var(--border); }
+  .brand-body.open { display: block; }
+
+  .meta-row { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 10px; }
+  .meta-item { font-size: 12px; color: var(--muted); }
+  .meta-item span { color: var(--text); }
+
+  .evidence-list { list-style: none; }
+  .evidence-item { padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .evidence-item:last-child { border-bottom: none; }
+  .kw { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 3px; margin-right: 6px; text-transform: uppercase; letter-spacing: 0.4px; }
+  .kw-high { background: #0d2b0d; border: 1px solid #1a5c1a; color: #3fb950; }
+  .kw-med  { background: #1e1a00; border: 1px solid #5c4f00; color: #d4af37; }
+  .kw-exp  { background: #0d1f36; border: 1px solid #1f4b7a; color: #58a6ff; }
+  .quote { color: var(--text); font-style: italic; }
+  .who { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  .action-box { background: var(--surface2); border: 1px solid var(--border); border-radius: 5px; padding: 9px 13px; margin-top: 10px; font-size: 13px; }
+  .action-box .al { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
+
+  /* POSTHOG CARDS (Section 2) */
+  .phl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 8px; }
+  .phl-item { background: #0d1e1a; border: 1px solid #1a4a3a; border-radius: 6px; padding: 10px 14px; }
+  .phl-item.dimmed { opacity: 0.55; }
+  .phl-brand { font-weight: 600; color: var(--teal); font-size: 14px; }
+  .phl-meta { font-size: 11px; color: var(--muted); margin-top: 3px; }
+  .phl-note { font-size: 11px; color: #5a9a6a; margin-top: 4px; }
+  .already-pm-badge { font-size: 10px; background: #1a0a2e; border: 1px solid #6e3fa3; color: var(--purple); padding: 1px 6px; border-radius: 3px; margin-left: 6px; vertical-align: middle; }
+
+  /* TRACKER TABLE (Section 3) */
+  .tracker-table { width: 100%; border-collapse: collapse; }
+  .tracker-table thead tr { background: var(--surface2); }
+  .tracker-table th { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.6px; color: var(--muted); padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); }
+  .tracker-table tbody tr { border-bottom: 1px solid var(--border); transition: background 0.1s; }
+  .tracker-table tbody tr:hover { background: var(--surface2); }
+  .tracker-table td { padding: 9px 14px; font-size: 13px; vertical-align: middle; }
+
+  .source-badge { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.4px; white-space: nowrap; }
+  .src-avoma   { background: #2d1e06; border: 1px solid #7a4f00; color: var(--warm); }
+  .src-posthog { background: #0a1e14; border: 1px solid #1a4a3a; color: var(--teal); }
+
+  .stage-select {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+    min-width: 148px;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%238b949e'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 28px;
+  }
+  .stage-select:focus { border-color: #58a6ff; }
+  .stage-select.s-demo-done      { border-color: #1f4b7a; color: #58a6ff; }
+  .stage-select.s-trial          { border-color: #6e3fa3; color: var(--purple); }
+  .stage-select.s-converted      { border-color: #1a5c1a; color: var(--green); }
+  .stage-select.s-didnt-convert  { border-color: #8b1a1a; color: var(--hot); }
+  .stage-select.s-not-responsive { border-color: #444c56; color: var(--muted); }
+
+  .comment-input {
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    color: var(--text);
+    font-size: 12px;
+    padding: 5px 8px;
+    width: 100%;
+    outline: none;
+    font-family: inherit;
+    resize: none;
+    transition: border-color 0.15s;
+  }
+  .comment-input:hover  { border-color: var(--border); background: var(--surface2); }
+  .comment-input:focus  { border-color: #58a6ff; background: var(--surface2); }
+  .comment-input::placeholder { color: var(--muted); opacity: 0.6; }
+
+  .save-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); opacity: 0; transition: opacity 0.3s; display: inline-block; margin-left: 4px; vertical-align: middle; }
+  .save-dot.visible { opacity: 1; }
 </style>
 </head>
 <body>
 
-<div class="site-header">
-  <div>
-    <h1>&#127919; PM Lead Tracker</h1>
-    <div style="color:var(--muted);font-size:12px;margin-top:2px;">All runs &nbsp;&#183;&nbsp; Sources: Avoma + Periskope + PostHog</div>
-  </div>
-  <button onclick="location.reload()" style="background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:6px 14px;border-radius:6px;cursor:pointer;font-size:12px;font-family:inherit;">&#8635; Refresh</button>
-</div>
-
-<div class="tab-bar">
-  <button class="tab-btn active" id="tab-run2" onclick="switchTab('run2')">May 13&#8211;20, 2026 &nbsp;<span style="font-size:10px;color:var(--muted);font-weight:400;">LATEST</span></button>
-  <button class="tab-btn" id="tab-run1" onclick="switchTab('run1')">Apr 22&#8211;May 7, 2026</button>
-</div>
-
-<div id="panel-run2" class="run-panel active">
-<div class="container">
-  <div class="banner"><span>&#9888;</span><div><strong>HubSpot PM pipeline filter not applied</strong> &#8212; HubSpot MCP not connected. Exclusion list approximated via Periskope PM-prefixed chats.</div></div>
-  <div class="banner"><span>&#9888;</span><div><strong>Avoma transcripts unavailable</strong> &#8212; All 768 meetings for May 13&#8211;20 have <code>transcript_ready: false</code>. Bot not admitted / too recent. Periskope WhatsApp used as fallback.</div></div>
-  <div class="banner"><span>&#9888;</span><div><strong>PostHog self-qualified leads anonymous</strong> &#8212; 10 clicks on PM cross-sell modal; all identity properties null. Cross-reference distinct IDs in your CRM.</div></div>
-
-  <div class="section-title">&#128203; Avoma + Periskope Leads <span class="count-badge">1 prospect flagged</span></div>
-
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div class="card-title"><span class="badge badge-prospect">PROSPECT</span><span>SupplySix</span><span style="color:var(--muted);font-size:12px;">Active PM Evaluation</span></div>
-      <span style="color:var(--muted);font-size:12px;">&#9660;</span>
-    </div>
-    <div class="card-body">
-      <div style="margin-bottom:10px;"><span class="chip">Source: Avoma meeting titles</span><span class="chip">No WhatsApp chat</span><span class="chip">Transcripts not ready</span></div>
-      <p style="color:var(--muted);font-size:13px;margin-bottom:10px;">Multiple Avoma meetings titled <strong>"PM Dashboard Walkthrough"</strong> found for SupplySix. No Periskope chat exists yet. Transcripts not available for scoring.</p>
-      <div class="action-box"><div class="action-label">RECOMMENDED ACTION</div>CSM to follow up post-demo &#8212; confirm interest, move to Trial, create Periskope chat.</div>
-    </div>
-  </div>
-
-  <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:12px;font-size:13px;">
-    <div style="color:var(--muted);margin-bottom:8px;"><strong style="color:var(--text);">Excluded (already on PM):</strong> The Deconstruct, Minimalist, Boldfit, Wingreens Raw Pressery, Safe Harvest, GetAWay, Philips, Eat Anytime, Reckitt, Mesmerize, Boult, Ocean Beverages</div>
-    <div style="color:var(--muted);"><strong style="color:var(--text);">Scanned, 0 signals:</strong> Godrej CP, Godrej Jersey, Emami, Tata Consumer, The Man Company, Pepsico, 24Mantra</div>
-  </div>
-
-  <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:32px;">
-    <div style="padding:12px 16px;border-bottom:1px solid var(--border);font-size:13px;font-weight:600;color:var(--muted);letter-spacing:.5px;">TRACKER &#8212; AVOMA + PERISKOPE LEADS</div>
-    <table><thead><tr><th>BRAND</th><th>SOURCE</th><th>SIGNAL</th><th style="width:170px;">STAGE</th><th>NOTES</th></tr></thead>
-    <tbody><tr>
-      <td><strong>SupplySix</strong></td><td><span class="chip">Avoma</span></td>
-      <td><span class="chip chip-signal">PM Dashboard Walkthrough</span></td>
-      <td><select class="stage-select" onchange="sv('r2_ss_stage',this.value)"><option value="">&#8212; Select stage</option><option value="demo">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="didnt">Didn't Convert</option><option value="nr">Not Responsive</option></select></td>
-      <td><textarea class="comment-input" rows="2" placeholder="Add notes..." onchange="sn('r2_ss_notes',this.value)"></textarea></td>
-    </tr></tbody></table>
-  </div>
-
-  <div class="section-title">&#129504; PostHog Leads &#183; Self-Qualified via PM Cross-Sell Modal <span class="count-badge">10 clicks &#183; 8 anonymous users</span></div>
-
-  <div class="banner" style="margin-bottom:20px;"><span>&#128269;</span><div style="color:#e3b341;">These users clicked <strong>"Get In Touch"</strong> on the PM cross-sell modal. Company identities unknown &#8212; cross-reference distinct IDs in your CRM or product DB.</div></div>
-
-  <div class="posthog-grid">
-    <div class="posthog-card"><div class="user-id">7fb587f2...</div><div class="clicks">1</div><div style="font-size:11px;color:var(--muted);">click(s)</div><div class="last-click">&#9679; Last: May 18, 2026</div></div>
-    <div class="posthog-card"><div class="user-id">974d68ae...</div><div class="clicks">1</div><div style="font-size:11px;color:var(--muted);">click(s)</div><div class="last-click">&#9679; Last: May 18, 2026</div></div>
-    <div class="posthog-card"><div class="user-id">b267ae81...</div><div class="clicks">1</div><div style="font-size:11px;color:var(--muted);">click(s)</div><div class="last-click">&#9679; Last: May 18, 2026</div></div>
-    <div class="posthog-card"><div class="user-id">e70a23aa...</div><div class="clicks">2</div><div style="font-size:11px;color:var(--muted);">click(s)</div><div class="last-click">&#9679; Last: May 16, 2026</div></div>
-    <div class="posthog-card"><div class="user-id">b73f61ea...</div><div class="clicks">1</div><div style="font-size:11px;color:var(--muted);">click(s)</div><div class="last-click">&#9679; Last: May 15, 2026</div></div>
-    <div class="posthog-card"><div class="user-id">1be111c0...</div><div class="clicks">2</div><div style="font-size:11px;color:var(--muted);">click(s)</div><div class="last-click">&#9679; Last: May 15, 2026</div></div>
-    <div class="posthog-card"><div class="user-id">bfa2bc5f...</div><div class="clicks">1</div><div style="font-size:11px;color:var(--muted);">click(s)</div><div class="last-click">&#9679; Last: May 14, 2026</div></div>
-    <div class="posthog-card"><div class="user-id">c11760eb...</div><div class="clicks">1</div><div style="font-size:11px;color:var(--muted);">click(s)</div><div class="last-click">&#9679; Last: May 14, 2026</div></div>
-  </div>
-  <div style="text-align:center;color:var(--muted);font-size:12px;padding:20px 0 40px;">Generated May 20, 2026</div>
-</div>
-</div>
-
-<div id="panel-run1" class="run-panel">
-<div class="container">
-
-
-
+<div class="header">
+  <h1>&#127919; PM Lead Tracker</h1>
+  <div class="meta">Apr 22 &#8211; May 7, 2026 &nbsp;&#183;&nbsp; Sources: Avoma transcripts + PostHog cross-sell events</div>
 </div>
 
 <!-- &#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552; -->
@@ -662,38 +687,118 @@ function toggleCard(header) {
 }
 </script>
 
-</div>
+<!-- &#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552; -->
+<!-- RUN: May 13&#8211;20, 2026 -->
+<!-- &#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552; -->
+<div style="margin:48px 0 32px;display:flex;align-items:center;gap:16px;">
+  <div style="flex:1;height:2px;background:linear-gradient(90deg,transparent,#30363d);"></div>
+  <div style="font-family:monospace;font-size:13px;color:#8b949e;padding:6px 16px;border:1px solid #30363d;border-radius:20px;background:#161b22;white-space:nowrap;">&#128197; Run: May 13&#8211;20, 2026</div>
+  <div style="flex:1;height:2px;background:linear-gradient(90deg,#30363d,transparent);"></div>
 </div>
 
-<script>
-function switchTab(id){
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  document.querySelectorAll('.run-panel').forEach(p=>p.classList.remove('active'));
-  document.getElementById('tab-'+id).classList.add('active');
-  document.getElementById('panel-'+id).classList.add('active');
-  try{localStorage.setItem('pmt_tab',id);}catch(e){}
-}
-function toggleCard(h){
-  const b=h.nextElementSibling;
-  b.classList.toggle('open');
-  h.querySelector('span:last-child').textContent=b.classList.contains('open')?'&#9650;':'&#9660;';
-}
-function sv(k,v){try{localStorage.setItem('pmt_'+k,v);}catch(e){}}
-function sn(k,v){try{localStorage.setItem('pmt_'+k,v);}catch(e){}}
-document.addEventListener('DOMContentLoaded',function(){
-  try{
-    const tab=localStorage.getItem('pmt_tab');
-    if(tab)switchTab(tab);
-    document.querySelectorAll('select.stage-select').forEach(s=>{
-      const k=(s.getAttribute('onchange')||'').match(/'([^']+)'/)?.[1];
-      if(k){const v=localStorage.getItem('pmt_'+k);if(v)s.value=v;}
-    });
-    document.querySelectorAll('textarea.comment-input').forEach(t=>{
-      const k=(t.getAttribute('onchange')||'').match(/'([^']+)'/)?.[1];
-      if(k){const v=localStorage.getItem('pmt_'+k);if(v)t.value=v;}
-    });
-  }catch(e){}
-});
-</script>
+<div style="background:#332b00;border:1px solid #d29922;border-radius:8px;padding:10px 14px;margin-bottom:8px;color:#e3b341;font-size:12px;">
+  &#9888; HubSpot PM pipeline filter could not be applied &#8212; HubSpot MCP has now been connected and will be used from the next run onward.
+</div>
+<div style="background:#332b00;border:1px solid #d29922;border-radius:8px;padding:10px 14px;margin-bottom:8px;color:#e3b341;font-size:12px;">
+  &#9888; Avoma transcripts were unavailable for this 7-day window &#8212; intent scores based on meeting titles only.
+</div>
+<div style="background:#332b00;border:1px solid #d29922;border-radius:8px;padding:10px 14px;margin-bottom:24px;color:#e3b341;font-size:12px;">
+  &#9888; PostHog cross-sell clicks returned anonymous user IDs &#8212; no company names could be matched for this run.
+</div>
+
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+  <div style="font-size:15px;font-weight:700;color:#e6edf3;">&#128203; Avoma + Periskope Leads &#183; 1 brand</div>
+  <div style="font-size:11px;color:#8b949e;font-family:monospace;">May 13&#8211;20, 2026</div>
+</div>
+
+<div class="brand-card" style="margin-bottom:12px;">
+  <div style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:14px 16px;border-bottom:1px solid #21262d;" onclick="var b=this.nextElementSibling;b.style.display=b.style.display==='none'?'block':'none'">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <span style="font-weight:700;font-size:14px;color:#e6edf3;">SupplySix</span>
+      <span class="tier-badge" style="background:#1f6feb;color:#fff;border-radius:4px;font-size:10px;font-weight:700;padding:2px 7px;">EARLY</span>
+      <span style="font-size:11px;color:#8b949e;font-family:monospace;">Score: 5</span>
+    </div>
+    <span style="color:#8b949e;font-size:12px;">&#9660;</span>
+  </div>
+  <div style="display:block;padding:12px 16px;">
+    <div style="font-size:11px;color:#8b949e;margin-bottom:8px;">Source: Avoma &#183; Signal: PM Dashboard Walkthrough meeting scheduled</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;">
+      <span style="background:#0d419d;color:#79c0ff;border:1px solid #1f6feb;border-radius:4px;padding:2px 8px;font-size:11px;font-family:monospace;">PM Dashboard Walkthrough</span>
+    </div>
+    <div style="font-size:11px;color:#8b949e;">&#128197; Most recent signal: May 2026 &#183; &#128205; Avoma</div>
+    <div style="margin-top:10px;padding:8px 10px;background:#1c2128;border-radius:6px;border-left:3px solid #1f6feb;font-size:11px;color:#79c0ff;">
+      &#9654; Recommended action: Schedule PM intro call. Meeting title indicates active interest in PM features.
+    </div>
+  </div>
+</div>
+
+<div style="margin-top:16px;margin-bottom:32px;overflow-x:auto;">
+  <table style="width:100%;border-collapse:collapse;font-size:12px;font-family:monospace;">
+    <thead>
+      <tr style="background:#161b22;color:#8b949e;text-align:left;">
+        <th style="padding:8px 10px;border-bottom:1px solid #30363d;">Brand</th>
+        <th style="padding:8px 10px;border-bottom:1px solid #30363d;">Source</th>
+        <th style="padding:8px 10px;border-bottom:1px solid #30363d;">Stage</th>
+        <th style="padding:8px 10px;border-bottom:1px solid #30363d;">Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid #21262d;">
+        <td style="padding:8px 10px;color:#e6edf3;">SupplySix</td>
+        <td style="padding:8px 10px;color:#8b949e;">Avoma</td>
+        <td style="padding:8px 10px;">
+          <select onchange="localStorage.setItem('stage_may20_supplysix',this.value)" style="background:#21262d;color:#e6edf3;border:1px solid #30363d;border-radius:4px;padding:2px 6px;font-size:11px;">
+            <option value="">&#8212; Select stage</option>
+            <option value="demo">Demo Done</option>
+            <option value="trial">Trial</option>
+            <option value="converted">Converted</option>
+            <option value="lost">Didn't Convert</option>
+            <option value="nr">Not Responsive</option>
+          </select>
+        </td>
+        <td style="padding:8px 10px;"><input type="text" placeholder="Add notes..." oninput="localStorage.setItem('notes_may20_supplysix',this.value)" style="background:#21262d;color:#e6edf3;border:1px solid #30363d;border-radius:4px;padding:3px 8px;font-size:11px;width:180px;" /></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+  <div style="font-size:15px;font-weight:700;color:#e6edf3;">&#129424; PostHog Leads &#183; Self-Qualified via PM Cross-Sell Modal &#183; 8 active leads</div>
+</div>
+
+<div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px;">
+  <div style="background:#1c2128;border:1px solid #30363d;border-radius:8px;padding:10px 14px;font-size:12px;font-family:monospace;"><div style="color:#e6edf3;font-weight:700;">7fb587f2&#8230;</div><div style="color:#8b949e;margin-top:3px;">1 click &#183; May 18</div></div>
+  <div style="background:#1c2128;border:1px solid #30363d;border-radius:8px;padding:10px 14px;font-size:12px;font-family:monospace;"><div style="color:#e6edf3;font-weight:700;">974d68ae&#8230;</div><div style="color:#8b949e;margin-top:3px;">1 click &#183; May 18</div></div>
+  <div style="background:#1c2128;border:1px solid #30363d;border-radius:8px;padding:10px 14px;font-size:12px;font-family:monospace;"><div style="color:#e6edf3;font-weight:700;">b267ae81&#8230;</div><div style="color:#8b949e;margin-top:3px;">1 click &#183; May 18</div></div>
+  <div style="background:#1c2128;border:1px solid #30363d;border-radius:8px;padding:10px 14px;font-size:12px;font-family:monospace;"><div style="color:#e6edf3;font-weight:700;">e70a23aa&#8230;</div><div style="color:#8b949e;margin-top:3px;">2 clicks &#183; May 16</div></div>
+  <div style="background:#1c2128;border:1px solid #30363d;border-radius:8px;padding:10px 14px;font-size:12px;font-family:monospace;"><div style="color:#e6edf3;font-weight:700;">b73f61ea&#8230;</div><div style="color:#8b949e;margin-top:3px;">1 click &#183; May 15</div></div>
+  <div style="background:#1c2128;border:1px solid #30363d;border-radius:8px;padding:10px 14px;font-size:12px;font-family:monospace;"><div style="color:#e6edf3;font-weight:700;">1be111c0&#8230;</div><div style="color:#8b949e;margin-top:3px;">2 clicks &#183; May 15</div></div>
+  <div style="background:#1c2128;border:1px solid #30363d;border-radius:8px;padding:10px 14px;font-size:12px;font-family:monospace;"><div style="color:#e6edf3;font-weight:700;">bfa2bc5f&#8230;</div><div style="color:#8b949e;margin-top:3px;">1 click &#183; May 14</div></div>
+  <div style="background:#1c2128;border:1px solid #30363d;border-radius:8px;padding:10px 14px;font-size:12px;font-family:monospace;"><div style="color:#e6edf3;font-weight:700;">c11760eb&#8230;</div><div style="color:#8b949e;margin-top:3px;">1 click &#183; May 14</div></div>
+</div>
+
+<div style="overflow-x:auto;margin-bottom:48px;">
+  <table style="width:100%;border-collapse:collapse;font-size:12px;font-family:monospace;">
+    <thead>
+      <tr style="background:#161b22;color:#8b949e;text-align:left;">
+        <th style="padding:8px 10px;border-bottom:1px solid #30363d;">User ID</th>
+        <th style="padding:8px 10px;border-bottom:1px solid #30363d;">Clicks</th>
+        <th style="padding:8px 10px;border-bottom:1px solid #30363d;">Last Click</th>
+        <th style="padding:8px 10px;border-bottom:1px solid #30363d;">Stage</th>
+        <th style="padding:8px 10px;border-bottom:1px solid #30363d;">Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid #21262d;"><td style="padding:8px 10px;color:#e6edf3;">7fb587f2&#8230;</td><td style="padding:8px 10px;color:#8b949e;">1</td><td style="padding:8px 10px;color:#8b949e;">May 18</td><td style="padding:8px 10px;"><select onchange="localStorage.setItem('stage_ph_7fb587f2',this.value)" style="background:#21262d;color:#e6edf3;border:1px solid #30363d;border-radius:4px;padding:2px 6px;font-size:11px;"><option value="">&#8212; Select stage</option><option value="demo">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="lost">Didn't Convert</option><option value="nr">Not Responsive</option></select></td><td style="padding:8px 10px;"><input type="text" placeholder="Add notes..." oninput="localStorage.setItem('notes_ph_7fb587f2',this.value)" style="background:#21262d;color:#e6edf3;border:1px solid #30363d;border-radius:4px;padding:3px 8px;font-size:11px;width:160px;" /></td></tr>
+      <tr style="border-bottom:1px solid #21262d;"><td style="padding:8px 10px;color:#e6edf3;">974d68ae&#8230;</td><td style="padding:8px 10px;color:#8b949e;">1</td><td style="padding:8px 10px;color:#8b949e;">May 18</td><td style="padding:8px 10px;"><select onchange="localStorage.setItem('stage_ph_974d68ae',this.value)" style="background:#21262d;color:#e6edf3;border:1px solid #30363d;border-radius:4px;padding:2px 6px;font-size:11px;"><option value="">&#8212; Select stage</option><option value="demo">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="lost">Didn't Convert</option><option value="nr">Not Responsive</option></select></td><td style="padding:8px 10px;"><input type="text" placeholder="Add notes..." oninput="localStorage.setItem('notes_ph_974d68ae',this.value)" style="background:#21262d;color:#e6edf3;border:1px solid #30363d;border-radius:4px;padding:3px 8px;font-size:11px;width:160px;" /></td></tr>
+      <tr style="border-bottom:1px solid #21262d;"><td style="padding:8px 10px;color:#e6edf3;">b267ae81&#8230;</td><td style="padding:8px 10px;color:#8b949e;">1</td><td style="padding:8px 10px;color:#8b949e;">May 18</td><td style="padding:8px 10px;"><select onchange="localStorage.setItem('stage_ph_b267ae81',this.value)" style="background:#21262d;color:#e6edf3;border:1px solid #30363d;border-radius:4px;padding:2px 6px;font-size:11px;"><option value="">&#8212; Select stage</option><option value="demo">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="lost">Didn't Convert</option><option value="nr">Not Responsive</option></select></td><td style="padding:8px 10px;"><input type="text" placeholder="Add notes..." oninput="localStorage.setItem('notes_ph_b267ae81',this.value)" style="background:#21262d;color:#e6edf3;border:1px solid #30363d;border-radius:4px;padding:3px 8px;font-size:11px;width:160px;" /></td></tr>
+      <tr style="border-bottom:1px solid #21262d;"><td style="padding:8px 10px;color:#e6edf3;">e70a23aa&#8230;</td><td style="padding:8px 10px;color:#8b949e;">2</td><td style="padding:8px 10px;color:#8b949e;">May 16</td><td style="padding:8px 10px;"><select onchange="localStorage.setItem('stage_ph_e70a23aa',this.value)" style="background:#21262d;color:#e6edf3;border:1px solid #30363d;border-radius:4px;padding:2px 6px;font-size:11px;"><option value="">&#8212; Select stage</option><option value="demo">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="lost">Didn't Convert</option><option value="nr">Not Responsive</option></select></td><td style="padding:8px 10px;"><input type="text" placeholder="Add notes..." oninput="localStorage.setItem('notes_ph_e70a23aa',this.value)" style="background:#21262d;color:#e6edf3;border:1px solid #30363d;border-radius:4px;padding:3px 8px;font-size:11px;width:160px;" /></td></tr>
+      <tr style="border-bottom:1px solid #21262d;"><td style="padding:8px 10px;color:#e6edf3;">b73f61ea&#8230;</td><td style="padding:8px 10px;color:#8b949e;">1</td><td style="padding:8px 10px;color:#8b949e;">May 15</td><td style="padding:8px 10px;"><select onchange="localStorage.setItem('stage_ph_b73f61ea',this.value)" style="background:#21262d;color:#e6edf3;border:1px solid #30363d;border-radius:4px;padding:2px 6px;font-size:11px;"><option value="">&#8212; Select stage</option><option value="demo">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="lost">Didn't Convert</option><option value="nr">Not Responsive</option></select></td><td style="padding:8px 10px;"><input type="text" placeholder="Add notes..." oninput="localStorage.setItem('notes_ph_b73f61ea',this.value)" style="background:#21262d;color:#e6edf3;border:1px solid #30363d;border-radius:4px;padding:3px 8px;font-size:11px;width:160px;" /></td></tr>
+      <tr style="border-bottom:1px solid #21262d;"><td style="padding:8px 10px;color:#e6edf3;">1be111c0&#8230;</td><td style="padding:8px 10px;color:#8b949e;">2</td><td style="padding:8px 10px;color:#8b949e;">May 15</td><td style="padding:8px 10px;"><select onchange="localStorage.setItem('stage_ph_1be111c0',this.value)" style="background:#21262d;color:#e6edf3;border:1px solid #30363d;border-radius:4px;padding:2px 6px;font-size:11px;"><option value="">&#8212; Select stage</option><option value="demo">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="lost">Didn't Convert</option><option value="nr">Not Responsive</option></select></td><td style="padding:8px 10px;"><input type="text" placeholder="Add notes..." oninput="localStorage.setItem('notes_ph_1be111c0',this.value)" style="background:#21262d;color:#e6edf3;border:1px solid #30363d;border-radius:4px;padding:3px 8px;font-size:11px;width:160px;" /></td></tr>
+      <tr style="border-bottom:1px solid #21262d;"><td style="padding:8px 10px;color:#e6edf3;">bfa2bc5f&#8230;</td><td style="padding:8px 10px;color:#8b949e;">1</td><td style="padding:8px 10px;color:#8b949e;">May 14</td><td style="padding:8px 10px;"><select onchange="localStorage.setItem('stage_ph_bfa2bc5f',this.value)" style="background:#21262d;color:#e6edf3;border:1px solid #30363d;border-radius:4px;padding:2px 6px;font-size:11px;"><option value="">&#8212; Select stage</option><option value="demo">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="lost">Didn't Convert</option><option value="nr">Not Responsive</option></select></td><td style="padding:8px 10px;"><input type="text" placeholder="Add notes..." oninput="localStorage.setItem('notes_ph_bfa2bc5f',this.value)" style="background:#21262d;color:#e6edf3;border:1px solid #30363d;border-radius:4px;padding:3px 8px;font-size:11px;width:160px;" /></td></tr>
+      <tr style="border-bottom:1px solid #21262d;"><td style="padding:8px 10px;color:#e6edf3;">c11760eb&#8230;</td><td style="padding:8px 10px;color:#8b949e;">1</td><td style="padding:8px 10px;color:#8b949e;">May 14</td><td style="padding:8px 10px;"><select onchange="localStorage.setItem('stage_ph_c11760eb',this.value)" style="background:#21262d;color:#e6edf3;border:1px solid #30363d;border-radius:4px;padding:2px 6px;font-size:11px;"><option value="">&#8212; Select stage</option><option value="demo">Demo Done</option><option value="trial">Trial</option><option value="converted">Converted</option><option value="lost">Didn't Convert</option><option value="nr">Not Responsive</option></select></td><td style="padding:8px 10px;"><input type="text" placeholder="Add notes..." oninput="localStorage.setItem('notes_ph_c11760eb',this.value)" style="background:#21262d;color:#e6edf3;border:1px solid #30363d;border-radius:4px;padding:3px 8px;font-size:11px;width:160px;" /></td></tr>
+    </tbody>
+  </table>
+</div>
 </body>
-</html>
+  </html>
